@@ -2,4 +2,13 @@
 *.pot
 *.pyc
 local_settings.py
-.*
+####
+# vi
+####
+*.swp*
+####
+# emacs
+####
+*~
+[#]*[#]
+.\#*
