@@ -2,9 +2,9 @@
 import webapp2
 
 class MainPage(webapp2.RequestHandler):
-  def get(self):
-      self.response.headers['Content-Type'] = 'text/plain'
-      self.response.write('Bonjour, 曾冠傑!')
+    def get(self):
+        self.response.headers['Content-Type'] = 'text/plain'
+        self.response.write('Bonjour, 曾冠傑!')
 
 app = webapp2.WSGIApplication([('/', MainPage)],
                               debug=True)

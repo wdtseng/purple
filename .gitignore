@@ -16,3 +16,4 @@ local_settings.py
 # .pyproject
 ####
 *.pydevproject
+.settings
