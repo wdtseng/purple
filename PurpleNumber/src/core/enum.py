@@ -29,13 +29,17 @@ Represents a basic enum value
 '''
 class EnumValue(object):
     def __init__ (self, name):
-        self.name = name;
+        self._name = name
+
+    @property
+    def name(self):
+        return self._name
 
     def __str__(self):
-        return self.name;
+        return self._name
 
     def __repr__(self):
-        return self.name;
+        return self._name
 
 '''
 Represents an enum with chinese value associated with it
@@ -43,10 +47,14 @@ Represents an enum with chinese value associated with it
 class ChineseEnumValue(EnumValue):
     def __init__(self, name, chinese):
         EnumValue.__init__(self, name)
-        self.chinese = chinese
+        self._chinese = chinese
+
+    @property
+    def chinese(self):
+        return self._chinese
 
     def __str__(self):
-        return self.chinese
+        return self._chinese
 
     def __repr__(self):
-        return self.chinese
+        return self._chinese

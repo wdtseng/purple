@@ -7,15 +7,19 @@ Test the CreateEnum method
 @author: Robert Tseng
 '''
 import unittest
-import enum
+from core.enum import *
 
 class Test(unittest.TestCase):
 
+
     def testCreateEnumWithEnumValue(self):
         # set up pet enum
+        class PetEnumValue(EnumValue):
+            pass
+
         pets = ["CAT", "DOG", "GOLDFISH"]
-        petsTuple = tuple(enum.EnumValue(name) for name in pets)
-        PetEnum = enum.CreateEnum(petsTuple);
+        petsTuple = tuple(PetEnumValue(name) for name in pets)
+        PetEnum = CreateEnum(petsTuple);
         
         # verify the enum contain right number of elements
         self.assertEqual(len(list(iter(PetEnum))), 3);
@@ -31,15 +35,18 @@ class Test(unittest.TestCase):
 
         # verify that each enum is exactly equal to itself
         for i in xrange(len(PetEnum)):
+            self.assertTrue(isinstance(PetEnum[i], PetEnumValue))
             for j in xrange(len(PetEnum)):
                 self.assertEqual(i == j, PetEnum[i] == PetEnum[j])
 
 
     def testCreateEnumWithChineseEnumValue(self):
         # set up pet enum
+        class PetEnumValue(ChineseEnumValue):
+            pass
         pets = [("CAT", "貓"), ("DOG", "狗"), ("GOLDFISH", "魚")]
-        petsTuple = tuple(enum.ChineseEnumValue(name, chinese) for name, chinese in pets)
-        PetEnum = enum.CreateEnum(petsTuple)
+        petsTuple = tuple(PetEnumValue(name, chinese) for name, chinese in pets)
+        PetEnum = CreateEnum(petsTuple)
 
         # verify the enum contain right number of elements
         self.assertEqual(len(list(iter(PetEnum))), 3);
@@ -58,6 +65,7 @@ class Test(unittest.TestCase):
 
         # verify that each enum is exactly equal to itself
         for i in xrange(len(PetEnum)):
+            self.assertTrue(isinstance(PetEnum[i], PetEnumValue))
             for j in xrange(len(PetEnum)):
                 self.assertEqual(i == j, PetEnum[i] == PetEnum[j])
 

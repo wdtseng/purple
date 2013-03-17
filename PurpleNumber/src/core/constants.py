@@ -2,15 +2,18 @@
 """
 Created on Mar 15, 2013
 
-tiangan and dizhi constants
+Constants needed for the purple board
 
 @author: Robert Tseng
 """
 
-import enum;
+import core.enum;
 
-TianGan = enum.CreateEnum(tuple(
-    [enum.ChineseEnumValue(name, chinese)
+class TianGanEnumValue(core.enum.ChineseEnumValue):
+    pass
+
+TianGan = core.enum.CreateEnum(tuple(
+    [TianGanEnumValue(name, chinese)
      for name, chinese in
          [("JIA", "甲"),
           ("YI", "乙"),
@@ -24,8 +27,11 @@ TianGan = enum.CreateEnum(tuple(
           ("KUI", "癸"),
          ]]))
 
-DiZhi = enum.CreateEnum(tuple(
-    [enum.ChineseEnumValue(name, chinese)
+class DiZhiEnumValue(core.enum.ChineseEnumValue):
+    pass
+
+DiZhi = core.enum.CreateEnum(tuple(
+    [DiZhiEnumValue(name, chinese)
      for name, chinese in
      [("ZI", "子"),
       ("CHOU", "丑"),
@@ -41,15 +47,22 @@ DiZhi = enum.CreateEnum(tuple(
       ("HAI", "亥"),
       ]]))
 
+class PalaceEnumValue(core.enum.ChineseEnumValue):
+    pass
 
-if __name__ == "__main__":
-    print "checking"
-    print TianGan.JIA
-    print TianGan[0]
-    print TianGan.JIA.number
-    print TianGan.JIA.name
-    it = iter(TianGan)
-    print it.next()
-    print [value for value in list(iter(TianGan))]
-    print [TianGan.JIA, TianGan.YI]
-    print list(iter(DiZhi))
+Palace = core.enum.CreateEnum(tuple(
+    [PalaceEnumValue(name, chinese)
+     for name, chinese in
+     [("MING", "命"),
+      ("FUMU", "父母"),
+      ("FUDE", "福德"),
+      ("ZINV", "子女"),
+      ("GUANLU", "官祿"),
+      ("PENGYOU", "朋友"),
+      ("QIANYI", "遷移"),
+      ("JIE", "疾惡"),
+      ("CAIBO", "財帛"),
+      ("TIANZHAI", "田宅"),
+      ("FUQI", "夫妻"),
+      ("XIONGDI", "兄弟"),
+      ]]))
