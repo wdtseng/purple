@@ -3,8 +3,10 @@ Created on Mar 16, 2013
 
 @author: Robert Tseng
 '''
-from core.constants import *
-from core.grid import *
+
+from core.constants import Palace, TianGan
+from core.grid import Grid
+from core.star import Star
 import unittest
 
 class Test(unittest.TestCase):
