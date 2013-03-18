@@ -1,0 +1,35 @@
+package purple.number;
+
+message TianGan {
+  enum TianGanType {
+    JIA = 0;
+    YI = 1;
+    BING = 2;
+    DING = 3;
+    WU = 4;
+    JI = 5;
+    GENG = 6;
+    XIN = 7;
+    REN = 8;
+    KUI = 9;
+  }
+  required TianGanType type = 1;
+}
+
+message DiZhi {
+  enum DiZhiType {
+    ZI = 0;
+    CHOU = 1;
+    YIN = 2;
+    MAO = 3;
+    CHEN = 4;
+    SI = 5;
+    WU = 6;
+    WEI = 7;
+    SHEN = 8;
+    YOU = 9;
+    XU = 10;
+    HAI = 11;
+  }
+  required DiZhiType type = 1;
+}
