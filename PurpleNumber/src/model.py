@@ -83,7 +83,7 @@ class Board(messages.Message):
     AlphaStar (身主). It also contains metadata such as name, sex, birth date,
     and the lunar birth date."""
     # Exactly 12 grids, start with the grid with TianGan.JIA and DiZhi.ZI.
-    grids = messsages.MessageField(Grid, 1, repeated=True)
+    grids = messages.MessageField(Grid, 1, repeated=True)
     destiny_star = messages.EnumField(AlphaStar, 2)
     body_star = messages.EnumField(AlphaStar, 3)
     name = messages.StringField(4)
@@ -104,8 +104,9 @@ CHINESE = {
           TianGan.DING: "丁",
           TianGan.WU: "戊",
           TianGan.JI: "己",
-          TIanGan.GENG: "庚",
+          TianGan.GENG: "庚",
           TianGan.XIN: "辛",
           TianGan.REN: "壬",
           TianGan.KUI: "癸",
+          DiZhi.ZI: "子",
 }

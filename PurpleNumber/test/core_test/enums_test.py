@@ -3,9 +3,6 @@
 
 @author: Dustin Tseng
 """
-import sys
-sys.path.insert(0, "../src")
-
 import unittest
 from core.enums import TianGanUtil
 from core.enums import TianGan
