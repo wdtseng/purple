@@ -9,7 +9,7 @@ import unittest
 def run_tests(src_dir, test_dir):
     sys.path.insert(0, src_dir)
     suite = unittest.defaultTestLoader.discover(test_dir, "*_test.py")
-    unittest.TextTestRunner().run(suite)
+    unittest.TextTestRunner(verbosity=2).run(suite)
 
 def include_app_engine_path(DIR_PATH):
     EXTRA_PATHS = [

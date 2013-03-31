@@ -40,15 +40,15 @@ class AlphaStar(messages.Enum):
     TAI_YANG = 2
     WU_QU = 3
     TIAN_TONG = 4
-    LIAN_JEN = 5
+    LIAN_ZHEN = 5
     TIAN_FU = 6
     TAI_YIN = 7
-    TANG_LANG = 8
+    TAN_LANG = 8
     JU_MEN = 9
     TIAN_XIANG = 10
     TIAN_LIANG = 11
     QI_SHA = 12
-    PUO_JUN = 13
+    PO_JUN = 13
 
 class Palace(messages.Enum):
     """Enum for 宮位 constants."""
@@ -64,6 +64,14 @@ class Palace(messages.Enum):
     TIAN_ZHAI = 9
     FU_DE = 10
     FU_MU = 11
+
+class Element(messages.Enum):
+    """Enum for 五行 constants."""
+    MU = 0
+    HUO = 1
+    TU = 2
+    JIN = 3
+    SHUI = 4
 
 class Grid(messages.Message):
     """Structure of a single 宮位.
@@ -151,6 +159,27 @@ CHINESE = {
     Palace.TIAN_ZHAI: u"田宅",
     Palace.FU_DE: u"福德",
     Palace.FU_MU: u"父母",
+
+    Element.MU: u"木",
+    Element.HUO: u"火",
+    Element.TU: u"土",
+    Element.JIN: u"金",
+    Element.SHUI: u"水",
+
+    AlphaStar.ZI_WEI: u"紫微",
+    AlphaStar.TIAN_JI: u"天機",
+    AlphaStar.TAI_YANG: u"太陽",
+    AlphaStar.WU_QU: u"武曲",
+    AlphaStar.TIAN_TONG: u"天同",
+    AlphaStar.LIAN_ZHEN: u"廉貞",
+    AlphaStar.TIAN_FU: u"天府",
+    AlphaStar.TAI_YIN: u"太陰",
+    AlphaStar.TAN_LANG: u"貪狼",
+    AlphaStar.JU_MEN: u"巨門",
+    AlphaStar.TIAN_XIANG: u"天相",
+    AlphaStar.TIAN_LIANG: u"天梁",
+    AlphaStar.QI_SHA: u"七殺",
+    AlphaStar.PO_JUN: u"破軍",
 }
 
 SAMPLE = Board()
