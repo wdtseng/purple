@@ -32,8 +32,12 @@ def include_app_engine_path(DIR_PATH):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Run all unit tests in test/")
-    parser.add_argument("app_engine_path", help="path to the app engine directory")
+    parser = argparse.ArgumentParser(description="Run all unit tests in test.")
+    parser.add_argument("app_engine_path",
+                        help=("path to the app engine directory. "
+                              "Default: /usr/local/google_appengine"),
+                        nargs="?",
+                        default="/usr/local/google_appengine")
     args = parser.parse_args()
 
     include_app_engine_path(args.app_engine_path)
