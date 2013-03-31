@@ -97,16 +97,72 @@ class Board(messages.Message):
     lunar_day_of_month = messages.IntegerField(12) # 1 - 30.
     time_di_zhi = messages.EnumField(DiZhi, 13)
 
+def print_board(board):
+    """Print the contents of a given Board.
+
+    Args:
+      board, a Board.
+    """
+    assert isinstance(board, Board)
+    print u"Name: %s" % board.name
+    print u"Sex: %s" % ("male" if board.is_male else "female")
+    print u"陽曆%4d年%2d月%2d日生" % (board.year, board.month_of_year,
+                                     board.day_of_month)
+    print u"陰曆%s%s年%2d月%2d日%s時生" % (CHINESE[board.year_tian_gan],
+                                          CHINESE[board.year_di_zhi],
+                                          board.lunar_month_of_year,
+                                          board.lunar_day_of_month,
+                                          CHINESE[board.time_di_zhi])
+
 CHINESE = {
-          TianGan.JIA : "甲",
-          TianGan.YI: "乙",
-          TianGan.BING: "丙",
-          TianGan.DING: "丁",
-          TianGan.WU: "戊",
-          TianGan.JI: "己",
-          TianGan.GENG: "庚",
-          TianGan.XIN: "辛",
-          TianGan.REN: "壬",
-          TianGan.KUI: "癸",
-          DiZhi.ZI: "子",
+    TianGan.JIA: u"甲",
+    TianGan.YI: u"乙",
+    TianGan.BING: u"丙",
+    TianGan.DING: u"丁",
+    TianGan.WU: u"戊",
+    TianGan.JI: u"己",
+    TianGan.GENG: u"庚",
+    TianGan.XIN: u"辛",
+    TianGan.REN: u"壬",
+    TianGan.KUI: u"癸",
+
+    DiZhi.ZI: u"子",
+    DiZhi.CHOU: u"丑",
+    DiZhi.YIN: u"寅",
+    DiZhi.MAO: u"卯",
+    DiZhi.CHEN: u"辰",
+    DiZhi.SI: u"巳",
+    DiZhi.WU: u"午",
+    DiZhi.WEI: u"未",
+    DiZhi.SHEN: u"申",
+    DiZhi.YOU: u"酉",
+    DiZhi.XU: u"戌",
+    DiZhi.HAI: u"亥",
+
+    Palace.MING_GONG: u"命宮",
+    Palace.XIONG_DI: u"兄弟",
+    Palace.FU_QI: u"夫妻",
+    Palace.ZI_NV: u"子女",
+    Palace.CAI_BO: u"財帛",
+    Palace.JI_E: u"疾厄",
+    Palace.QIAN_YI: u"遷移",
+    Palace.JIAO_YOU: u"交友",
+    Palace.GUAN_LU: u"官祿",
+    Palace.TIAN_ZHAI: u"田宅",
+    Palace.FU_DE: u"福德",
+    Palace.FU_MU: u"父母",
 }
+
+SAMPLE = Board()
+SAMPLE.name = u"戴吟珍"
+SAMPLE.is_male = False
+SAMPLE.year = 1964
+SAMPLE.month_of_year = 1
+SAMPLE.day_of_month = 18
+SAMPLE.year_tian_gan = TianGan.KUI
+SAMPLE.year_di_zhi = DiZhi.MAO
+SAMPLE.lunar_month_of_year = 12
+SAMPLE.lunar_day_of_month = 4
+SAMPLE.time_di_zhi = DiZhi.YOU
+
+print_board(SAMPLE)

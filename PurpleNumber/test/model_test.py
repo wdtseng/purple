@@ -13,6 +13,6 @@ from model import CHINESE
 
 class TestChinese(unittest.TestCase):
     def test_chinese(self):
-        self.assertEqual("甲", CHINESE[TianGan.JIA])
-        self.assertEqual("子", CHINESE[DiZhi.ZI])
+        self.assertEqual(u"甲", CHINESE[TianGan.JIA])
+        self.assertEqual(u"子", CHINESE[DiZhi.ZI])
 
