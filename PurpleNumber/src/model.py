@@ -1,5 +1,5 @@
 # coding=utf-8
-"""protorpc enum definitions for various Chinese constants.
+"""protorpc enum and message definitions of 紫微斗數 命盤.
 
 @author: Dustin Tseng
 """
@@ -73,6 +73,16 @@ class Element(messages.Enum):
     JIN = 3
     SHUI = 4
 
+class Sex(messages.Enum):
+    """Enum for sex."""
+    MALE = 0
+    FEMALE = 1
+
+class Taichi(messages.Enum):
+    """Enum for 五行 constants."""
+    YIN = 0
+    YANG = 1
+
 class Grid(messages.Message):
     """Structure of a single 宮位.
 
@@ -81,46 +91,44 @@ class Grid(messages.Message):
     tian_gan = messages.EnumField(TianGan, 1)
     di_zhi = messages.EnumField(DiZhi, 2)
     palace = messages.EnumField(Palace, 3)
-    stars = messages.EnumField(AlphaStar, 4, repeated=True)
+    alpha_stars = messages.EnumField(AlphaStar, 4, repeated=True)
     is_body_palace = messages.BooleanField(5, default=False)
+
+class Person(messages.Message):
+    """Personal information.
+
+    Includes metadata such as name, sex, and birthday (solar and lunar).
+    """
+    name = messages.StringField(1)
+    sex = messages.EnumField(Sex, 2)
+    taichi = messages.EnumField(Taichi, 3)
+
+    # Solar birthday.
+    year = messages.IntegerField(10)  # E.g., 1949.
+    month_of_year = messages.IntegerField(11)  # 1 - 12.
+    day_of_month = messages.IntegerField(12)  # 1 - 31.
+
+    # Lunar birthday.
+    year_tian_gan = messages.EnumField(TianGan, 20)
+    year_di_zhi = messages.EnumField(DiZhi, 21)
+    lunar_month_of_year = messages.IntegerField(22) # 1 - 12.
+    lunar_day_of_month = messages.IntegerField(23) # 1 - 30.
+    time_di_zhi = messages.EnumField(DiZhi, 24)
 
 class Board(messages.Message):
     """Structure of a 命盤.
 
-    A Board consists of twelve Grids, a destiny AlphaStar (命主), and a body
-    AlphaStar (身主). It also contains metadata such as name, sex, birth date,
-    and the lunar birth date."""
+    A Board consists of a Person and twelve Grids. It also contains metadata
+    that can be derived from the Grids such as the destiny AlphaStar (命主), the
+    body AlphaStar (身主), the element of the board, etc."""
     # Exactly 12 grids, start with the grid with TianGan.JIA and DiZhi.ZI.
     grids = messages.MessageField(Grid, 1, repeated=True)
-    destiny_star = messages.EnumField(AlphaStar, 2)
-    body_star = messages.EnumField(AlphaStar, 3)
-    name = messages.StringField(4)
-    is_male = messages.BooleanField(5)
-    year = messages.IntegerField(6)  # E.g., 1949.
-    month_of_year = messages.IntegerField(7)  # 1 - 12.
-    day_of_month = messages.IntegerField(8)  # 1 - 31.
-    year_tian_gan = messages.EnumField(TianGan, 9)
-    year_di_zhi = messages.EnumField(DiZhi, 10)
-    lunar_month_of_year = messages.IntegerField(11) # 1 - 12.
-    lunar_day_of_month = messages.IntegerField(12) # 1 - 30.
-    time_di_zhi = messages.EnumField(DiZhi, 13)
+    person = messages.MessageField(Person, 2)
 
-def print_board(board):
-    """Print the contents of a given Board.
-
-    Args:
-      board, a Board.
-    """
-    assert isinstance(board, Board)
-    print u"Name: %s" % board.name
-    print u"Sex: %s" % ("male" if board.is_male else "female")
-    print u"陽曆%4d年%2d月%2d日生" % (board.year, board.month_of_year,
-                                     board.day_of_month)
-    print u"陰曆%s%s年%2d月%2d日%s時生" % (CHINESE[board.year_tian_gan],
-                                          CHINESE[board.year_di_zhi],
-                                          board.lunar_month_of_year,
-                                          board.lunar_day_of_month,
-                                          CHINESE[board.time_di_zhi])
+    # Meta information about the board.
+    destiny_star = messages.EnumField(AlphaStar, 10)
+    body_star = messages.EnumField(AlphaStar, 11)
+    element = messages.EnumField(Element, 12)
 
 CHINESE = {
     TianGan.JIA: u"甲",
@@ -180,18 +188,85 @@ CHINESE = {
     AlphaStar.TIAN_LIANG: u"天梁",
     AlphaStar.QI_SHA: u"七殺",
     AlphaStar.PO_JUN: u"破軍",
+
+    Sex.MALE: u"男",
+    Sex.FEMALE: u"女",
+
+    Taichi.YIN: u"陰",
+    Taichi.YANG: u"陽",
 }
 
-SAMPLE = Board()
-SAMPLE.name = u"戴吟珍"
-SAMPLE.is_male = False
-SAMPLE.year = 1964
-SAMPLE.month_of_year = 1
-SAMPLE.day_of_month = 18
-SAMPLE.year_tian_gan = TianGan.KUI
-SAMPLE.year_di_zhi = DiZhi.MAO
-SAMPLE.lunar_month_of_year = 12
-SAMPLE.lunar_day_of_month = 4
-SAMPLE.time_di_zhi = DiZhi.YOU
+def print_person(person):
+    """Print the contents of a given Person.
 
-print_board(SAMPLE)
+    Args:
+        person, a Person.
+    """
+    assert isinstance(person, Person)
+    print u"Name: %s" % person.name
+    print u"Sex: %s" % CHINESE[person.sex]
+    print u"陽曆%4d年%2d月%2d日生" % (person.year, person.month_of_year,
+                                     person.day_of_month)
+    print u"陰曆%s%s年%2d月%2d日%s時生" % (CHINESE[person.year_tian_gan],
+                                          CHINESE[person.year_di_zhi],
+                                          person.lunar_month_of_year,
+                                          person.lunar_day_of_month,
+                                          CHINESE[person.time_di_zhi])
+def print_grid(grid):
+    """Print the contents of a given Grid.
+
+    Args:
+        grid, a Grid.
+    """
+    assert isinstance(grid, Grid)
+    print u"%s%s %s, [%s]" % (
+        CHINESE[grid.tian_gan],
+        CHINESE[grid.di_zhi],
+        CHINESE[grid.palace],
+        u",".join([CHINESE[star] for star in grid.alpha_stars]),
+    )
+
+def print_board(board):
+    """Print the contents of a given Board.
+
+    Args:
+        board, a Board.
+    """
+    assert isinstance(board, Board)
+    print_person(board.person)
+    for grid in board.grids:
+        print_grid(grid)
+
+GRIDS = [
+    Grid(
+        tian_gan=TianGan.JIA,
+        di_zhi=DiZhi.ZI,
+        palace=Palace.CAI_BO,
+        alpha_stars=[AlphaStar.TIAN_JI],
+    ),
+    Grid(
+        tian_gan=TianGan.YI,
+        di_zhi=DiZhi.CHOU,
+        palace=Palace.ZI_NV,
+        alpha_stars=[AlphaStar.ZI_WEI, AlphaStar.PO_JUN],
+    ),
+]
+
+SAMPLE_PERSON = Person(
+    name=u"戴吟珍",
+    sex=Sex.FEMALE,
+    year=1964,
+    month_of_year=1,
+    day_of_month=18,
+    year_tian_gan=TianGan.KUI,
+    year_di_zhi=DiZhi.MAO,
+    lunar_month_of_year=12,
+    lunar_day_of_month=4,
+    time_di_zhi=DiZhi.YOU,
+)
+
+SAMPLE = Board(
+    person=SAMPLE_PERSON,
+    grids=GRIDS,
+)
+

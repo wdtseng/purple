@@ -13,6 +13,8 @@ from model import Palace
 from model import Grid
 from model import Board
 from model import CHINESE
+from model import SAMPLE
+from model import print_board
 
 class TestChinese(unittest.TestCase):
     """Test the CHINESE dictionary defined in model."""
@@ -26,3 +28,5 @@ class TestChinese(unittest.TestCase):
                                         Palace,
                                         AlphaStar):
             self.assertTrue(tian_gan in CHINESE)
+    def test_print(self):
+        print_board(SAMPLE)
