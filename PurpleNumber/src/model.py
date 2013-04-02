@@ -219,10 +219,11 @@ def print_grid(grid):
         grid, a Grid.
     """
     assert isinstance(grid, Grid)
-    print u"%s%s %s, [%s]" % (
+    print u"%s%s %s%s, [%s]" % (
         CHINESE[grid.tian_gan],
         CHINESE[grid.di_zhi],
         CHINESE[grid.palace],
+        u"(身)" if grid.is_body_palace else u"",
         u",".join([CHINESE[star] for star in grid.alpha_stars]),
     )
 
@@ -291,6 +292,25 @@ GRIDS = [
         di_zhi=DiZhi.SHEN,
         palace=Palace.GUAN_LU,
         alpha_stars=[AlphaStar.TIAN_TONG, AlphaStar.TIAN_LIANG],
+    ),
+    Grid(
+        tian_gan=TianGan.XIN,
+        di_zhi=DiZhi.YOU,
+        palace=Palace.JIAO_YOU,
+        alpha_stars=[AlphaStar.WU_QU, AlphaStar.QI_SHA],
+    ),
+    Grid(
+        tian_gan=TianGan.REN,
+        di_zhi=DiZhi.XU,
+        palace=Palace.QIAN_YI,
+        alpha_stars=[AlphaStar.TAI_YANG],
+        is_body_palace=True,
+    ),
+    Grid(
+        tian_gan=TianGan.KUI,
+        di_zhi=DiZhi.HAI,
+        palace=Palace.JI_E,
+        alpha_stars=[],
     ),
 ]
 
