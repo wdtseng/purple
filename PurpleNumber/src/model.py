@@ -250,6 +250,48 @@ GRIDS = [
         palace=Palace.ZI_NV,
         alpha_stars=[AlphaStar.ZI_WEI, AlphaStar.PO_JUN],
     ),
+    Grid(
+        tian_gan=TianGan.JIA,
+        di_zhi=DiZhi.YIN,
+        palace=Palace.FU_QI,
+        alpha_stars=[],
+    ),
+    Grid(
+        tian_gan=TianGan.YI,
+        di_zhi=DiZhi.MAO,
+        palace=Palace.XIONG_DI,
+        alpha_stars=[AlphaStar.TIAN_FU],
+    ),
+    Grid(
+        tian_gan=TianGan.BING,
+        di_zhi=DiZhi.CHEN,
+        palace=Palace.MING_GONG,
+        alpha_stars=[AlphaStar.TAI_YIN],
+    ),
+    Grid(
+        tian_gan=TianGan.DING,
+        di_zhi=DiZhi.SI,
+        palace=Palace.FU_MU,
+        alpha_stars=[AlphaStar.LIAN_ZHEN, AlphaStar.TAN_LANG],
+    ),
+    Grid(
+        tian_gan=TianGan.WU,
+        di_zhi=DiZhi.WU,
+        palace=Palace.FU_DE,
+        alpha_stars=[AlphaStar.JU_MEN],
+    ),
+    Grid(
+        tian_gan=TianGan.JI,
+        di_zhi=DiZhi.WEI,
+        palace=Palace.TIAN_ZHAI,
+        alpha_stars=[AlphaStar.TIAN_XIANG],
+    ),
+    Grid(
+        tian_gan=TianGan.GENG,
+        di_zhi=DiZhi.SHEN,
+        palace=Palace.GUAN_LU,
+        alpha_stars=[AlphaStar.TIAN_TONG, AlphaStar.TIAN_LIANG],
+    ),
 ]
 
 SAMPLE_PERSON = Person(
