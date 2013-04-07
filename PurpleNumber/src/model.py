@@ -50,6 +50,12 @@ class AlphaStar(messages.Enum):
     QI_SHA = 12
     PO_JUN = 13
 
+    # beta start that I'm currently putting in alpha star
+    LU_CUN = 14
+    WEN_QU = 15
+    HUO_XING = 16
+    WEN_CHANG = 17
+
 class Palace(messages.Enum):
     """Enum for 宮位 constants."""
     MING_GONG = 0
@@ -197,6 +203,10 @@ CHINESE = {
     AlphaStar.TIAN_LIANG: u"天梁",
     AlphaStar.QI_SHA: u"七殺",
     AlphaStar.PO_JUN: u"破軍",
+    AlphaStar.LU_CUN: u"祿存",
+    AlphaStar.WEN_QU: u"文曲",
+    AlphaStar.HUO_XING: u"火星",
+    AlphaStar.WEN_CHANG: u"文昌",
 
     Sex.MALE: u"男",
     Sex.FEMALE: u"女",
