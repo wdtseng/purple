@@ -80,8 +80,14 @@ class Sex(messages.Enum):
 
 class Taichi(messages.Enum):
     """Enum for 五行 constants."""
-    YIN = 0
-    YANG = 1
+    YANG = 0
+    YIN = 1
+
+class BoardClassification(messages.Enum):
+    """ Enum for board classifications. """
+    SI_TAO_HUA = 0
+    SI_KU = 1
+    SI_MA = 2
 
 class Grid(messages.Message):
     """Structure of a single 宮位.
@@ -101,7 +107,6 @@ class Person(messages.Message):
     """
     name = messages.StringField(1)
     sex = messages.EnumField(Sex, 2)
-    taichi = messages.EnumField(Taichi, 3)
 
     # Solar birthday.
     year = messages.IntegerField(10)  # E.g., 1949.
@@ -128,9 +133,11 @@ class Board(messages.Message):
     # Meta information about the board.
     destiny_star = messages.EnumField(AlphaStar, 10)
     body_star = messages.EnumField(AlphaStar, 11)
-    taichi = messages.EnumField(Taichi, 12)  # 陽宮，陰宮
-    element = messages.EnumField(Element, 13)  # 土二局
-    element_number = messages.IntegerField(14)  # 水二，木三，金四，土五，火六
+    board_taichi = messages.EnumField(Taichi, 12)  # 陽宮，陰宮
+    person_taichi = messages.EnumField(Taichi, 13)
+    element = messages.EnumField(Element, 14)  # 土二局
+    element_number = messages.IntegerField(15)  # 水二，木三，金四，土五，火六
+    classification = messages.EnumField(BoardClassification, 16)  # 四庫，四馬，四桃花
 
 CHINESE = {
     TianGan.JIA: u"甲",
@@ -196,6 +203,10 @@ CHINESE = {
 
     Taichi.YIN: u"陰",
     Taichi.YANG: u"陽",
+
+    BoardClassification.SI_KU: u"四庫",
+    BoardClassification.SI_MA: u"四馬",
+    BoardClassification.SI_TAO_HUA: u"四桃花",
 
     0: u"零",
     1: u"一",
@@ -332,7 +343,6 @@ GRIDS = [
 SAMPLE_PERSON = Person(
     name=u"戴吟珍",
     sex=Sex.FEMALE,
-    taichi=Taichi.YIN,
     year=1964,
     month_of_year=1,
     day_of_month=18,
@@ -348,8 +358,10 @@ SAMPLE = Board(
     grids=GRIDS,
     destiny_star=AlphaStar.LIAN_ZHEN,
     body_star=AlphaStar.TIAN_TONG,
-    taichi=Taichi.YANG,
+    board_taichi=Taichi.YANG,
+    person_taichi=Taichi.YIN,
     element=Element.TU,
     element_number=5,
+    classification=BoardClassification.SI_KU,
 )
 
