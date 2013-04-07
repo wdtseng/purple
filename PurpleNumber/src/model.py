@@ -53,17 +53,17 @@ class AlphaStar(messages.Enum):
 class Palace(messages.Enum):
     """Enum for 宮位 constants."""
     MING_GONG = 0
-    XIONG_DI = 1
-    FU_QI = 2
-    ZI_NV = 3
-    CAI_BO = 4
-    JI_E = 5
+    FU_MU = 1
+    FU_DE = 2
+    TIAN_ZHAI = 3
+    GUAN_LU = 4
+    JIAO_YOU = 5
     QIAN_YI = 6
-    JIAO_YOU = 7
-    GUAN_LU = 8
-    TIAN_ZHAI = 9
-    FU_DE = 10
-    FU_MU = 11
+    JI_E = 7
+    CAI_BO = 8
+    ZI_NV = 9
+    FU_QI = 10
+    XIONG_DI = 11
 
 class Element(messages.Enum):
     """Enum for 五行 constants."""
