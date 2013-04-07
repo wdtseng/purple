@@ -16,3 +16,10 @@ class TestGenBoard(unittest.TestCase):
             self.assertEqual(SAMPLE.grids[dizhi.number].tian_gan, board.grids[dizhi.number].tian_gan)
             self.assertEqual(SAMPLE.grids[dizhi.number].di_zhi, board.grids[dizhi.number].di_zhi)
             self.assertEqual(SAMPLE.grids[dizhi.number].palace, board.grids[dizhi.number].palace)
+            self.assertEqual(SAMPLE.grids[dizhi.number].is_body_palace, board.grids[dizhi.number].is_body_palace)
+
+        self.assertEqual(SAMPLE.element, board.element)
+        self.assertEqual(SAMPLE.element_number, board.element_number)
+        self.assertEqual(SAMPLE.person_taichi, board.person_taichi)
+        self.assertEqual(SAMPLE.board_taichi, board.board_taichi)
+        self.assertEqual(SAMPLE.classification, board.classification)

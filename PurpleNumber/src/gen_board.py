@@ -3,14 +3,15 @@
 
 @author: Robert Tseng
 """
-
 from model import *
+
+# from model import *
 
 def generate_board(person):
     board = Board()
     board.person = person
 
-    # Populate the 12 Grids with DiZhi first
+    # Populate the 12 Grids with DiZhi
     board.grids = [Grid() for _ in xrange(len(DiZhi))]
     for dizhi in DiZhi:
         grid = board.grids[dizhi.number]
@@ -52,6 +53,23 @@ def generate_board(person):
     for palace in Palace:
         board.grids[(palace.number + ming_dizhi_offset) % len(DiZhi)].palace = palace
 
+    # Determine where hte body palace is
+    body_dizhi_offset = ((DiZhi.YIN.number + person.lunar_month_of_year - 1) + person.time_di_zhi.number) % len(DiZhi)
+    board.grids[body_dizhi_offset].is_body_palace = True;
+
+    # Determine the element and element_number of the board
+    board_element_mapping = [Element.JIN, Element.SHUI, Element.HUO, Element.TU, Element.MU]
+    board_element_number_mapping = [4, 2, 6, 5, 3]
+    element_index = ((((ming_dizhi_offset / 2) % 3)
+                    + (board.grids[ming_dizhi_offset].tian_gan.number / 2))
+                     % len(board_element_mapping))
+    board.element = board_element_mapping[element_index]
+    board.element_number = board_element_number_mapping[element_index]
+
+    # Determine the TaiChi of the person and the board
+    board.person_taichi = Taichi(person.year_tian_gan.number % 2)
+    board.board_taichi = Taichi(ming_dizhi_offset % 2)
+    board.classification = BoardClassification(ming_dizhi_offset % 3)
 
     # For debugging: print the board
     print_board(board)
