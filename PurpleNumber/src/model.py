@@ -105,6 +105,8 @@ class Grid(messages.Message):
     palace = messages.EnumField(Palace, 3)
     alpha_stars = messages.EnumField(AlphaStar, 4, repeated=True)
     is_body_palace = messages.BooleanField(5, default=False)
+    da_xian_start = messages.IntegerField(6)
+    da_xian_end = messages.IntegerField(7)
 
 class Person(messages.Message):
     """Personal information.
@@ -280,60 +282,80 @@ GRIDS = [
         di_zhi=DiZhi.ZI,
         palace=Palace.CAI_BO,
         alpha_stars=[AlphaStar.TIAN_JI],
+        da_xian_start=85,
+        da_xian_end=94,
     ),
     Grid(
         tian_gan=TianGan.YI,
         di_zhi=DiZhi.CHOU,
         palace=Palace.ZI_NV,
         alpha_stars=[AlphaStar.ZI_WEI, AlphaStar.PO_JUN],
+        da_xian_start=95,
+        da_xian_end=104,
     ),
     Grid(
         tian_gan=TianGan.JIA,
         di_zhi=DiZhi.YIN,
         palace=Palace.FU_QI,
         alpha_stars=[],
+        da_xian_start=105,
+        da_xian_end=114,
     ),
     Grid(
         tian_gan=TianGan.YI,
         di_zhi=DiZhi.MAO,
         palace=Palace.XIONG_DI,
         alpha_stars=[AlphaStar.TIAN_FU],
+        da_xian_start=115,
+        da_xian_end=124,
     ),
     Grid(
         tian_gan=TianGan.BING,
         di_zhi=DiZhi.CHEN,
         palace=Palace.MING_GONG,
         alpha_stars=[AlphaStar.TAI_YIN],
+        da_xian_start=5,
+        da_xian_end=14,
     ),
     Grid(
         tian_gan=TianGan.DING,
         di_zhi=DiZhi.SI,
         palace=Palace.FU_MU,
         alpha_stars=[AlphaStar.LIAN_ZHEN, AlphaStar.TAN_LANG],
+        da_xian_start=15,
+        da_xian_end=24,
     ),
     Grid(
         tian_gan=TianGan.WU,
         di_zhi=DiZhi.WU,
         palace=Palace.FU_DE,
         alpha_stars=[AlphaStar.JU_MEN],
+        da_xian_start=25,
+        da_xian_end=34,
     ),
     Grid(
         tian_gan=TianGan.JI,
         di_zhi=DiZhi.WEI,
         palace=Palace.TIAN_ZHAI,
         alpha_stars=[AlphaStar.TIAN_XIANG],
+        da_xian_start=35,
+        da_xian_end=44,
     ),
     Grid(
         tian_gan=TianGan.GENG,
         di_zhi=DiZhi.SHEN,
         palace=Palace.GUAN_LU,
         alpha_stars=[AlphaStar.TIAN_TONG, AlphaStar.TIAN_LIANG],
+        da_xian_start=45,
+        da_xian_end=54,
     ),
     Grid(
         tian_gan=TianGan.XIN,
         di_zhi=DiZhi.YOU,
         palace=Palace.JIAO_YOU,
         alpha_stars=[AlphaStar.WU_QU, AlphaStar.QI_SHA],
+        da_xian_start=55,
+        da_xian_end=64,
     ),
     Grid(
         tian_gan=TianGan.REN,
@@ -341,12 +363,16 @@ GRIDS = [
         palace=Palace.QIAN_YI,
         alpha_stars=[AlphaStar.TAI_YANG],
         is_body_palace=True,
+        da_xian_start=65,
+        da_xian_end=74,
     ),
     Grid(
         tian_gan=TianGan.KUI,
         di_zhi=DiZhi.HAI,
         palace=Palace.JI_E,
         alpha_stars=[],
+        da_xian_start=75,
+        da_xian_end=84,
     ),
 ]
 
