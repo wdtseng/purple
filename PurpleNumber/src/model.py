@@ -128,7 +128,9 @@ class Board(messages.Message):
     # Meta information about the board.
     destiny_star = messages.EnumField(AlphaStar, 10)
     body_star = messages.EnumField(AlphaStar, 11)
-    element = messages.EnumField(Element, 12)
+    taichi = messages.EnumField(Taichi, 12)  # 陽宮，陰宮
+    element = messages.EnumField(Element, 13)  # 土二局
+    element_number = messages.IntegerField(14)  # 水二，木三，金四，土五，火六
 
 CHINESE = {
     TianGan.JIA: u"甲",
@@ -194,6 +196,19 @@ CHINESE = {
 
     Taichi.YIN: u"陰",
     Taichi.YANG: u"陽",
+
+    0: u"零",
+    1: u"一",
+    2: u"二",
+    3: u"三",
+    4: u"四",
+    5: u"五",
+    6: u"六",
+    7: u"七",
+    8: u"八",
+    9: u"九",
+
+    " ": u"　",
 }
 
 def print_person(person):
@@ -317,6 +332,7 @@ GRIDS = [
 SAMPLE_PERSON = Person(
     name=u"戴吟珍",
     sex=Sex.FEMALE,
+    taichi=Taichi.YIN,
     year=1964,
     month_of_year=1,
     day_of_month=18,
@@ -330,5 +346,10 @@ SAMPLE_PERSON = Person(
 SAMPLE = Board(
     person=SAMPLE_PERSON,
     grids=GRIDS,
+    destiny_star=AlphaStar.LIAN_ZHEN,
+    body_star=AlphaStar.TIAN_TONG,
+    taichi=Taichi.YANG,
+    element=Element.TU,
+    element_number=5,
 )
 

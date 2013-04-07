@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>紫微斗數自己來</title>
+		<link rel="stylesheet" href="css/screen.css" type="text/css" media="screen, projection, print"/>
+		<!--[if lt IE 8]>
+		  <link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection">
+		<![endif]-->
+		<link rel="stylesheet" href="css/board.css" type="text/css"/>
+	</head>
+  <body>
+		<table class="board">
+			<!--<col width="{{ min_grid_width }}"/>
+			<col width="{{ min_grid_width }}"/>
+			<col width="{{ min_grid_width }}"/>
+			<col width="{{ min_grid_width }}"/> -->
+			<tr>
+				<td class="grid">5</td>
+				<td class="grid">6</td>
+				<td class="grid">7</td>
+				<td class="grid">8</td>
+			</tr>
+			<tr>
+				<td class="grid">4</td>
+				<td class="center" colspan="2" rowspan="2">
+					<div class="vertical center">
+						<p class="vertical-regular">{{ solar_birthday }}</p>
+						<p class="vertical-regular">{{ birthday }}</p>
+						<p class="vertical-regular">{{ lunar_birthday }}</p>
+						<p class="name">{{ board.person.name }}</p>
+						<p class="vertical-regular">{{ chinese[board.person.taichi] }}{{ chinese[board.person.sex]}}</p>
+						<p class="vertical-regular">{{ chinese[board.taichi] }}宮</p>
+						<p class="vertical-regular">{{ chinese[board.element] }}{{ chinese[board.element_number] }}局</p>
+						<p class="vertical-regular">命主：{{ chinese[board.destiny_star] }}</p>
+						<p class="vertical-regular">身主：{{ chinese[board.body_star] }}</p>
+					</div>
+				</td>
+				<td class="grid">9</td>
+			</tr>
+			<tr>
+				<td class="grid">3</td>
+				<!-- Two cells are taken by the center cell from previous row. -->
+				<td class="grid">10</td>
+			</tr>
+			<tr>
+				<td class="grid">2</td>
+				<td class="grid">1</td>
+				<td class="grid">0</td>
+				<td class="grid">11</td>
+			</tr>
+		</table>
+
+    {% for greeting in greetings %}
+      {% if greeting.author %}
+        <b>{{ greeting.author }}</b> wrote:
+      {% else %}
+        An anonymous person wrote:
+      {% endif %}
+      <blockquote>{{ greeting.content|escape }}</blockquote>
+    {% endfor %}
+
+    <form action="/sign" method="post">
+      <div><textarea name="content" rows="3" cols="60"></textarea></div>
+      <div><input type="submit" value="Sign Guestbook"></div>
+    </form>
+
+    <a href="{{ url }}">{{ url_linktext }}</a>
+
+  </body>
+</html>
