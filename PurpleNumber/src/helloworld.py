@@ -8,25 +8,22 @@ from model import CHINESE
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__) + '/template'))
 
-CHINESE_SPACE = u"　";
-
 class Empty():
     pass
 
 def num_to_chinese(number, length=0):
     assert isinstance(number, int)
-    NUMBERS = u"零一二三四五六七八九十"
     if number == 0:
-        chinese = NUMBERS[0]
+        chinese = CHINESE[0]
     else:
         chinese = u""
         while number > 0:
-            chinese = NUMBERS[number % 10] + chinese
+            chinese = CHINESE[number % 10] + chinese
             number /= 10
     if length == 0:
         return chinese
     else:
-        return chinese.rjust(length, CHINESE_SPACE)
+        return chinese.rjust(length, CHINESE[" "])
 
 
 def board_template_value(board):
