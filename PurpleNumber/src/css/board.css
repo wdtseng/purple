@@ -1,0 +1,50 @@
+table.board tbody tr:nth-child(even) td, tbody tr.even td {
+	background: #FFFFFF;
+}
+table.board {
+	border-collapse: collapse;
+	table-layout: fixed;
+}
+table.board td {
+	overflow: hidden;
+	padding: 0px 10px 0px 10px;
+}
+td.grid {
+	border: 1px solid black;
+	height: 180px;
+	/**
+	 * Turn this on to have minimum width for each grid.
+	 * width: 250px;
+	 */
+}
+div.center {
+	width: 100%
+}
+.vertical {
+	-webkit-writing-mode: vertical-rl;
+}
+.vertical-small {
+	-webkit-writing-mode: vertical-rl;
+	font-size: 1.5em;
+	line-height: 1.875em;
+	margin-bottom: 1.875em;
+}
+.vertical-regular {
+	-webkit-writing-mode: vertical-rl;
+	font-size: 1.8em;
+	line-height: 1.4em;
+	margin-top: 0.3em;
+	margin-bottom :0.3em;
+}
+.vertical-large {
+	-webkit-writing-mode: vertical-rl;
+	font-size: 3em;
+	line-height: 3.5em;
+}
+.name {
+	-webkit-writing-mode: vertical-rl;
+	font-size: 3em;
+	height: 100%;
+	text-align: center;
+	margin: 0 1em;
+}
