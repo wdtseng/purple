@@ -1,4 +1,8 @@
 # coding=utf-8
+"""Entry point of PurpleNumber app.
+
+@author: Dustin Tseng
+"""
 import jinja2
 import os
 import webapp2
@@ -11,22 +15,23 @@ jinja_environment = jinja2.Environment(
 class Empty():
     pass
 
-def num_to_chinese(number, length=0):
+def num_to_chinese(number, length=None):
     assert isinstance(number, int)
-    if number == 0:
-        chinese = CHINESE[0]
+    assert (length is None) or isinstance(length, int)
+    if number in CHINESE:
+        chinese = CHINESE[number]
     else:
-        chinese = u""
-        while number > 0:
-            chinese = CHINESE[number % 10] + chinese
+        chinese = CHINESE[number % 10]
+        while number >= 10:
             number /= 10
-    if length == 0:
+            chinese = CHINESE[number % 10] + chinese
+    if length is None:
         return chinese
     else:
         return chinese.rjust(length, CHINESE[" "])
 
 
-def board_template_value(board):
+def board_context(board):
     assert isinstance(board, model.Board)
     greeting1 = Empty()
     greeting2 = Empty()
@@ -60,13 +65,15 @@ def board_template_value(board):
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
-
         board_template = jinja_environment.get_template('board.html')
-        self.response.out.write(board_template.render(board_template_value(model.SAMPLE)))
+        self.response.headers['Content-Type'] = (
+            "Content-Type: text/html; charset=utf-8")
+        self.response.out.write(board_template.render(board_context(model.SAMPLE)))
 
 class RobertPage(webapp2.RequestHandler):
     def get(self):
-        self.response.headers['Content-Type'] = 'text/plain'
+        self.response.headers['Content-Type'] = (
+            "Content-Type: text/html; charset=utf-8")
         self.response.write('Booraga! Bonjour, 曾冠傑!')
 
 app = webapp2.WSGIApplication([('/', MainPage),
