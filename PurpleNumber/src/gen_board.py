@@ -4,6 +4,7 @@
 @author: Robert Tseng
 """
 from model import *
+from webapp2_extras.security import ALPHA
 
 # from model import *
 
@@ -70,6 +71,30 @@ def generate_board(person):
     board.person_taichi = Taichi(person.year_tian_gan.number % 2)
     board.board_taichi = Taichi(ming_dizhi_offset % 2)
     board.classification = BoardClassification(ming_dizhi_offset % 3)
+
+    # Determine destiny_star
+    destiny_star_mapping = [AlphaStar.TAN_LANG,
+                            AlphaStar.JU_MEN,
+                            AlphaStar.LU_CUN,
+                            AlphaStar.WEN_QU,
+                            AlphaStar.LIAN_ZHEN,
+                            AlphaStar.WU_QU,
+                            AlphaStar.PO_JUN,
+                            AlphaStar.LIAN_ZHEN,
+                            AlphaStar.WEN_QU,
+                            AlphaStar.LU_CUN,
+                            AlphaStar.JU_MEN]
+    board.destiny_star = destiny_star_mapping[ming_dizhi_offset]
+
+    # Determine body_star
+    body_star_mapping = [AlphaStar.HUO_XING,
+                         AlphaStar.TIAN_XIANG,
+                         AlphaStar.TIAN_LIANG,
+                         AlphaStar.TIAN_TONG,
+                         AlphaStar.WEN_CHANG,
+                         AlphaStar.TIAN_JI]
+    board.body_star = body_star_mapping[person.year_di_zhi.number % 6]
+
 
     # For debugging: print the board
     print_board(board)

@@ -23,3 +23,5 @@ class TestGenBoard(unittest.TestCase):
         self.assertEqual(SAMPLE.person_taichi, board.person_taichi)
         self.assertEqual(SAMPLE.board_taichi, board.board_taichi)
         self.assertEqual(SAMPLE.classification, board.classification)
+        self.assertEqual(SAMPLE.destiny_star, board.destiny_star)
+        self.assertEqual(SAMPLE.body_star, board.body_star)
