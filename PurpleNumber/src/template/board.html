@@ -8,45 +8,64 @@
 		<![endif]-->
 		<link rel="stylesheet" href="css/board.css" type="text/css"/>
 	</head>
+
+	<!-- Macro for a simple vertical word. -->
+	{% macro vertical_info() -%}
+	<p class="vertical regular">{{ caller() }}</p>
+	{%- endmacro %}
+
+	<!-- Macro for a grid. -->
+	{% macro grid_macro(grid)-%}
+	<div class="grid">
+		<div class="stars vertical">
+			{% for alpha_star in grid.alpha_stars %}
+			  {% call vertical_info() %}{{ chinese[alpha_star] }}{% endcall %}
+			{% endfor %}
+		</div>
+		<div class="palace regular">
+			{{ chinese[grid.palace] }}
+			{%- if grid.is_body_palace -%}
+			  (身)
+			{%- endif -%}
+		</div>
+	</div>
+	{%- endmacro %}
+
   <body>
 		<table class="board">
-			<!--<col width="{{ min_grid_width }}"/>
-			<col width="{{ min_grid_width }}"/>
-			<col width="{{ min_grid_width }}"/>
-			<col width="{{ min_grid_width }}"/> -->
 			<tr>
-				<td class="grid">5</td>
-				<td class="grid">6</td>
-				<td class="grid">7</td>
-				<td class="grid">8</td>
+				<td class="grid">{{ grid_macro(board.grids[5]) }}</td>
+				<td class="grid">{{ grid_macro(board.grids[6]) }}</td>
+				<td class="grid">{{ grid_macro(board.grids[7]) }}</td>
+				<td class="grid">{{ grid_macro(board.grids[8]) }}</td>
 			</tr>
 			<tr>
-				<td class="grid">4</td>
+				<td class="grid">{{ grid_macro(board.grids[4]) }}</td>
 				<td class="center" colspan="2" rowspan="2">
 					<div class="vertical center">
-						<p class="vertical-regular">{{ solar_birthday }}</p>
-						<p class="vertical-regular">{{ birthday }}</p>
-						<p class="vertical-regular">{{ lunar_birthday }}</p>
+						{% call vertical_info() %}{{ solar_birthday }}{% endcall %}
+						{% call vertical_info() %}{{ birthday }}{% endcall %}
+						{% call vertical_info() %}{{ lunar_birthday }}{% endcall %}
 						<p class="name">{{ board.person.name }}</p>
-						<p class="vertical-regular">{{ chinese[board.person.taichi] }}{{ chinese[board.person.sex]}}</p>
-						<p class="vertical-regular">{{ chinese[board.taichi] }}宮</p>
-						<p class="vertical-regular">{{ chinese[board.element] }}{{ chinese[board.element_number] }}局</p>
-						<p class="vertical-regular">命主：{{ chinese[board.destiny_star] }}</p>
-						<p class="vertical-regular">身主：{{ chinese[board.body_star] }}</p>
+						{% call vertical_info() %}{{ chinese[board.person.taichi] }}{{ chinese[board.person.sex]}}{% endcall %}
+						{% call vertical_info() %}{{ chinese[board.taichi] }}宮{% endcall %}
+						{% call vertical_info() %}{{ chinese[board.element] }}{{ chinese[board.element_number] }}局{% endcall %}
+						{% call vertical_info() %}命主：{{ chinese[board.destiny_star] }}{% endcall %}
+						{% call vertical_info() %}身主：{{ chinese[board.body_star] }}{% endcall %}
 					</div>
 				</td>
-				<td class="grid">9</td>
+				<td class="grid">{{ grid_macro(board.grids[9]) }}</td>
 			</tr>
 			<tr>
-				<td class="grid">3</td>
+				<td class="grid">{{ grid_macro(board.grids[3]) }}</td>
 				<!-- Two cells are taken by the center cell from previous row. -->
-				<td class="grid">10</td>
+				<td class="grid">{{ grid_macro(board.grids[10]) }}</td>
 			</tr>
 			<tr>
-				<td class="grid">2</td>
-				<td class="grid">1</td>
-				<td class="grid">0</td>
-				<td class="grid">11</td>
+				<td class="grid">{{ grid_macro(board.grids[2]) }}</td>
+				<td class="grid">{{ grid_macro(board.grids[1]) }}</td>
+				<td class="grid">{{ grid_macro(board.grids[0]) }}</td>
+				<td class="grid">{{ grid_macro(board.grids[11]) }}</td>
 			</tr>
 		</table>
 

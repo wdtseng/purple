@@ -7,41 +7,51 @@ table.board {
 }
 table.board td {
 	overflow: hidden;
-	padding: 0px 10px 0px 10px;
+	padding: 10px;
 }
 td.grid {
 	border: 1px solid black;
 	height: 180px;
+	vertical-align: top;
 	/**
 	 * Turn this on to have minimum width for each grid.
 	 * width: 250px;
 	 */
 }
-div.center {
+div.center,
+div.stars,
+div.palace,
+div.grid {
 	width: 100%
 }
+
+div.grid {
+	position: relative;
+	height: 100%;
+}
+
+div.palace {
+	bottom: 0;
+	position: absolute;
+	text-align: center;
+}
+
 .vertical {
 	-webkit-writing-mode: vertical-rl;
 }
-.vertical-small {
-	-webkit-writing-mode: vertical-rl;
+.small {
 	font-size: 1.5em;
 	line-height: 1.875em;
-	margin-bottom: 1.875em;
 }
-.vertical-regular {
-	-webkit-writing-mode: vertical-rl;
+.regular {
 	font-size: 1.8em;
 	line-height: 1.4em;
-	margin-top: 0.3em;
-	margin-bottom :0.3em;
 }
-.vertical-large {
-	-webkit-writing-mode: vertical-rl;
+.large {
 	font-size: 3em;
 	line-height: 3.5em;
 }
-.name {
+p.name {
 	-webkit-writing-mode: vertical-rl;
 	font-size: 3em;
 	height: 100%;
