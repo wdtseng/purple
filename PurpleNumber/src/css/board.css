@@ -33,6 +33,13 @@ div.grid {
 	height: 100%;
 }
 
+div.stars,
+div.center {
+	top: 0;
+	right: 0;
+	position: absolute;
+}
+
 div.palace {
 	bottom: 0;
 	position: absolute;
@@ -41,6 +48,7 @@ div.palace {
 
 .vertical {
 	-webkit-writing-mode: vertical-rl;
+	margin: 0;
 }
 .small {
 	font-size: 1.5em;

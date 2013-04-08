@@ -42,6 +42,7 @@
 			<tr>
 				<td class="grid">{{ grid_macro(board.grids[4]) }}</td>
 				<td class="center" colspan="2" rowspan="2">
+					<div class="grid">
 					<div class="vertical center">
 						{% call vertical_info() %}{{ solar_birthday }}{% endcall %}
 						{% call vertical_info() %}{{ birthday }}{% endcall %}
@@ -53,6 +54,7 @@
 						{% call vertical_info() %}命主：{{ chinese[board.destiny_star] }}{% endcall %}
 						{% call vertical_info() %}身主：{{ chinese[board.body_star] }}{% endcall %}
 					</div>
+				</div>
 				</td>
 				<td class="grid">{{ grid_macro(board.grids[9]) }}</td>
 			</tr>
