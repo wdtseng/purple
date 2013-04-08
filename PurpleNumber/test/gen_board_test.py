@@ -17,9 +17,13 @@ class TestGenBoard(unittest.TestCase):
             self.assertEqual(SAMPLE.grids[dizhi.number].di_zhi, board.grids[dizhi.number].di_zhi)
             self.assertEqual(SAMPLE.grids[dizhi.number].palace, board.grids[dizhi.number].palace)
             self.assertEqual(SAMPLE.grids[dizhi.number].is_body_palace, board.grids[dizhi.number].is_body_palace)
+            self.assertEqual(SAMPLE.grids[dizhi.number].da_xian_start, board.grids[dizhi.number].da_xian_start)
+            self.assertEqual(SAMPLE.grids[dizhi.number].da_xian_end, board.grids[dizhi.number].da_xian_end)
 
         self.assertEqual(SAMPLE.element, board.element)
         self.assertEqual(SAMPLE.element_number, board.element_number)
         self.assertEqual(SAMPLE.person_taichi, board.person_taichi)
         self.assertEqual(SAMPLE.board_taichi, board.board_taichi)
         self.assertEqual(SAMPLE.classification, board.classification)
+        self.assertEqual(SAMPLE.destiny_star, board.destiny_star)
+        self.assertEqual(SAMPLE.body_star, board.body_star)
