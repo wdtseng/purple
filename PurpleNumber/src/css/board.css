@@ -18,11 +18,14 @@ td.grid {
 	 * width: 250px;
 	 */
 }
+td.center {
+	height: 360px;
+}
 div.center,
 div.stars,
 div.palace,
 div.grid {
-	width: 100%
+	width: 100%;
 }
 
 div.grid {
