@@ -67,7 +67,7 @@ class MainPage(webapp2.RequestHandler):
     def get(self):
         board_template = jinja_environment.get_template('board.html')
         self.response.headers['Content-Type'] = (
-            "Content-Type: text/html; charset=utf-8")
+            "text/html; charset=utf-8")
         self.response.out.write(board_template.render(board_context(model.SAMPLE)))
 
 class RobertPage(webapp2.RequestHandler):
