@@ -47,8 +47,8 @@
 						{% call vertical_info() %}{{ birthday }}{% endcall %}
 						{% call vertical_info() %}{{ lunar_birthday }}{% endcall %}
 						<p class="name">{{ board.person.name }}</p>
-						{% call vertical_info() %}{{ chinese[board.person.taichi] }}{{ chinese[board.person.sex]}}{% endcall %}
-						{% call vertical_info() %}{{ chinese[board.taichi] }}宮{% endcall %}
+						{% call vertical_info() %}{{ chinese[board.person_taichi] }}{{ chinese[board.person.sex]}}{% endcall %}
+						{% call vertical_info() %}{{ chinese[board.board_taichi] }}宮{% endcall %}
 						{% call vertical_info() %}{{ chinese[board.element] }}{{ chinese[board.element_number] }}局{% endcall %}
 						{% call vertical_info() %}命主：{{ chinese[board.destiny_star] }}{% endcall %}
 						{% call vertical_info() %}身主：{{ chinese[board.body_star] }}{% endcall %}

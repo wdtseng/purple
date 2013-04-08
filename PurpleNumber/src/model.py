@@ -377,7 +377,7 @@ GRIDS = [
 ]
 
 SAMPLE_PERSON = Person(
-    name=u"戴吟珍",
+    name=u"戴采和",
     sex=Sex.FEMALE,
     year=1964,
     month_of_year=1,
