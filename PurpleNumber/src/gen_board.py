@@ -99,11 +99,7 @@ def generate_board(person):
     for dizhi_index in xrange(len(DiZhi)):
         board.grids[(ming_dizhi_offset + dizhi_index) % len(DiZhi)].da_xian_start = board.element_number + dizhi_index * 10
         board.grids[(ming_dizhi_offset + dizhi_index) % len(DiZhi)].da_xian_end = board.element_number + dizhi_index * 10 + 9
-#         print dizhi_index
-#         print board.grids[(ming_dizhi_offset + dizhi_index) % len(DiZhi)].da_xian_start
-#         print board.grids[(ming_dizhi_offset + dizhi_index) % len(DiZhi)].da_xian_end
-#         print CHINESE[DiZhi((ming_dizhi_offset + dizhi_index) % len(DiZhi))]
-#         print "---------------"
+
 
     # For debugging: print the board
     # print_board(board)
