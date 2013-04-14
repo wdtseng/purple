@@ -1,50 +1,4 @@
-table.board tbody tr:nth-child(even) td, tbody tr.even td {
-	background: none;
-}
-table.board {
-	border-collapse: collapse;
-	table-layout: fixed;
-	background-image: url(../svg/arrow10.svg);
-}
-table.board td {
-	overflow: hidden;
-	padding: 8px;
-}
-td.grid {
-	border: 1px solid black;
-	height: 150px;
-	vertical-align: top;
-	width: 150px;
-}
-td.center {
-	height: 300px;
-}
-div.tdContainer {
-	position: relative;
-	height: 100%;
-	width: 100%;
-	opacity: 100%;
-}
-
-div.stars,
-div.center {
-	top: 0;
-	right: 0;
-	position: absolute;
-}
-div.palace {
-	bottom: 0;
-	position: absolute;
-	text-align: center;
-	width: 100%;
-}
-div.gridTianGanDiZhi {
-	bottom: 0;
-	position: absolute;
-	right: 0;
-	opacity: 0.5;
-}
-
+/* CSS for generic styling. */
 .vertical {
 	-webkit-writing-mode: vertical-rl;
 	margin: 0;
@@ -64,12 +18,97 @@ div.gridTianGanDiZhi {
 	line-height: normal;
 	margin: 0;
 }
+
+/* CSS for the arrow background. */
+.arrow0 {
+	background-image: url(../svg/arrow0.svg);
+}
+.arrow1 {
+	background-image: url(../svg/arrow1.svg);
+}
+.arrow2 {
+	background-image: url(../svg/arrow2.svg);
+}
+.arrow3 {
+	background-image: url(../svg/arrow3.svg);
+}
+.arrow4 {
+	background-image: url(../svg/arrow4.svg);
+}
+.arrow5 {
+	background-image: url(../svg/arrow5.svg);
+}
+.arrow6 {
+	background-image: url(../svg/arrow6.svg);
+}
+.arrow7 {
+	background-image: url(../svg/arrow7.svg);
+}
+.arrow8 {
+	background-image: url(../svg/arrow8.svg);
+}
+.arrow9 {
+	background-image: url(../svg/arrow9.svg);
+}
+.arrow10 {
+	background-image: url(../svg/arrow10.svg);
+}
+.arrow11 {
+	background-image: url(../svg/arrow11.svg);
+}
+
+/* CSS that applies to the whole table. */
+table.board tbody tr:nth-child(even) td, tbody tr.even td {
+	background: none;
+}
+table.board {
+	border-collapse: collapse;
+	table-layout: fixed;
+}
+table.board td {
+	overflow: hidden;
+	padding: 8px;
+}
+td.grid {
+	border: 1px solid black;
+	height: 150px;
+	vertical-align: top;
+	width: 150px;
+}
+td.center {
+	height: 300px;
+}
+div.tdContainer {
+	position: relative;
+	height: 100%;
+	width: 100%;
+}
+
+/* CSS that applies to specific board elements. */
+div.stars,
+div.center {
+	top: 0;
+	right: 0;
+	position: absolute;
+}
+div.palace {
+	bottom: 0;
+	position: absolute;
+	text-align: center;
+	width: 100%;
+}
+div.tian-gan-di-zhi {
+	bottom: 0;
+	position: absolute;
+	right: 0;
+	opacity: 0.5;
+}
 p.name {
 	height: 100%;
 	text-align: center;
 	margin: 0 1em;
 }
-td.theThree {
+td.the-four {
+  /* 命財官遷 */
 	background: rgba(199, 230, 199, 0.3) !important;
 }
-/* 命財官遷 */

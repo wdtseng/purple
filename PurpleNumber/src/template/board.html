@@ -3,21 +3,24 @@
   <head>
     <title>紫微斗數自己來</title>
     <link rel="stylesheet" href="css/screen.css" type="text/css" media="screen, projection, print"/>
-    <!--[if lt IE 8]>
-      <link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection">
-    <![endif]-->
     <link rel="stylesheet" href="css/board.css" type="text/css"/>
+		<script
+			src="script/board.js" language="javascript" type="text/javascript">
+		</script>
   </head>
 
   <!-- Macro for a simple vertical word. -->
   {% macro vertical_info() -%}
   <p class="vertical regular">{{ caller() }}</p>
   {%- endmacro %}
+  {% macro vertical_info_small() -%}
+  <p class="vertical small">{{ caller() }}</p>
+  {%- endmacro %}
 
   <!-- Macro for a grid. -->
   {% macro grid_macro(grid)-%}
   <td id="grid{{ grid.di_zhi.number }}"
-    class="grid {% if grid.palace.number in [0, 4, 6, 8] %} theThree {% endif %}">
+    class="grid">
     <div class="tdContainer">
       <div class="stars vertical">
         {% for alpha_star in grid.alpha_stars %}
@@ -30,7 +33,7 @@
           (身)
         {%- endif %} ({{ grid.da_xian_start}}-{{grid.da_xian_end}})
       </div>
-      <div class="gridTianGanDiZhi vertical small">
+      <div class="tian-gan-di-zhi vertical small">
         {{ chinese[grid.tian_gan] }}{{ chinese[grid.di_zhi] }}
       </div>
     </div>
@@ -38,7 +41,7 @@
   {%- endmacro %}
 
   <body>
-    <table class="board">
+    <table id="board" class="board">
       <tr>
         {{ grid_macro(board.grids[5]) }}
         {{ grid_macro(board.grids[6]) }}
@@ -50,9 +53,9 @@
         <td class="center" colspan="2" rowspan="2">
           <div class="tdContainer">
             <div class="vertical center">
-              {% call vertical_info() %}{{ solar_birthday }}{% endcall %}
-              {% call vertical_info() %}{{ birthday }}{% endcall %}
-              {% call vertical_info() %}{{ lunar_birthday }}{% endcall %}
+              {% call vertical_info_small() %}{{ solar_birthday }}{% endcall %}
+              {% call vertical_info_small() %}{{ birthday }}{% endcall %}
+              {% call vertical_info_small() %}{{ lunar_birthday }}{% endcall %}
               <p class="large name">{{ board.person.name }}</p>
               {% call vertical_info() %}{{ chinese[board.person_taichi] }}{{ chinese[board.person.sex]}}{% endcall %}
               {% call vertical_info() %}{{ chinese[board.board_taichi] }}宮{% endcall %}
@@ -76,5 +79,12 @@
         {{ grid_macro(board.grids[11]) }}
       </tr>
     </table>
+		{% for grid in board.grids %}
+		{% if grid.palace.number == 0 %}
+		<script language="javascript" type="text/javascript">
+			highlightTheFour({{ grid.di_zhi.number }})
+		</script>
+		{% endif %}
+		{% endfor %}
   </body>
 </html>
