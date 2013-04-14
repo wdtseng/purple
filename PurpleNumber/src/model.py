@@ -53,10 +53,14 @@ class StarType(messages.Enum):
     # ALPHA_STAR_END = 100 defined below.
     
     # Beta stars
-    LU_CUN = 101
-    WEN_QU = 102
-    HUO_XING = 103
+    ZUO_FU = 101
+    YOU_BI = 102
+    WEN_QU = 103
     WEN_CHANG = 104
+    LU_CUN = 105
+    QING_YANG = 106
+    TUO_LUO = 107
+    HUO_XING = 108
 
 ALPHA_STARS = [StarType.ZI_WEI,
                StarType.TIAN_JI,
@@ -73,10 +77,23 @@ ALPHA_STARS = [StarType.ZI_WEI,
                StarType.QI_SHA,
                StarType.PO_JUN]
 
-BETA_STARS = [StarType.LU_CUN,
+BETA_STARS = [StarType.ZUO_FU,
+              StarType.YOU_BI,
               StarType.WEN_QU,
-              StarType.HUO_XING,
-              StarType.WEN_CHANG]
+              StarType.WEN_CHANG,
+              StarType.LU_CUN,
+              StarType.QING_YANG,
+              StarType.TUO_LUO,
+              StarType.HUO_XING]
+
+def get_rank(star_type):
+    assert isinstance(star_type, StarType)
+    if star_type in ALPHA_STARS:
+        return 0
+    elif star_type in BETA_STARS:
+        return 1
+    else:
+        return 2
 
 class Palace(messages.Enum):
     """Enum for 宮位 constants."""
@@ -124,15 +141,6 @@ class Star(messages.Message):
     si_hua = messages.IntegerField(3)  # bitmask for 祿權科忌
     element = messages.EnumField(Element, 4, repeated=True)
     element_tachi = messages.EnumField(Taichi, 5, repeated=True)
-
-def get_rank(star_type):
-    assert isinstance(star_type, StarType)
-    if star_type in ALPHA_STARS:
-        return 0
-    elif star_type in BETA_STARS:
-        return 1
-    else:
-        return 2
 
 class Grid(messages.Message):
     """Structure of a single 宮位.
@@ -244,10 +252,14 @@ CHINESE = {
     StarType.TIAN_LIANG: u"天梁",
     StarType.QI_SHA: u"七殺",
     StarType.PO_JUN: u"破軍",
-    StarType.LU_CUN: u"祿存",
+    StarType.ZUO_FU: u"左輔",
+    StarType.YOU_BI: u"右弼",
     StarType.WEN_QU: u"文曲",
-    StarType.HUO_XING: u"火星",
     StarType.WEN_CHANG: u"文昌",
+    StarType.LU_CUN: u"祿存",
+    StarType.QING_YANG: u"擎羊",
+    StarType.TUO_LUO: u"陀螺",
+    StarType.HUO_XING: u"火星",
 
     Sex.MALE: u"男",
     Sex.FEMALE: u"女",
@@ -309,6 +321,32 @@ CHINESE = {
     " ": u"　",
 }
 
+ELEMENT = {
+    TianGan.JIA: (Element.MU, Taichi.YANG),
+    TianGan.YI: (Element.MU, Taichi.YIN),
+    TianGan.BING: (Element.HUO, Taichi.YANG),
+    TianGan.DING: (Element.HUO, Taichi.YIN),
+    TianGan.WU: (Element.TU, Taichi.YANG),
+    TianGan.JI: (Element.TU, Taichi.YIN),
+    TianGan.GENG: (Element.JIN, Taichi.YANG),
+    TianGan.XIN: (Element.JIN, Taichi.YIN),
+    TianGan.REN: (Element.SHUI, Taichi.YANG),
+    TianGan.KUI: (Element.SHUI, Taichi.YIN),
+
+    DiZhi.ZI: (Element.SHUI, Taichi.YANG),
+    DiZhi.CHOU: (Element.TU, Taichi.YIN),
+    DiZhi.YIN: (Element.MU, Taichi.YANG),
+    DiZhi.MAO: (Element.MU, Taichi.YIN),
+    DiZhi.CHEN: (Element.TU, Taichi.YANG),
+    DiZhi.SI: (Element.HUO, Taichi.YIN),
+    DiZhi.WU: (Element.HUO, Taichi.YANG),
+    DiZhi.WEI: (Element.TU, Taichi.YIN),
+    DiZhi.SHEN: (Element.JIN, Taichi.YANG),
+    DiZhi.YOU: (Element.JIN, Taichi.YIN),
+    DiZhi.XU: (Element.TU, Taichi.YANG),
+    DiZhi.HAI: (Element.SHUI, Taichi.YIN),
+}
+
 def print_person(person):
     """Print the contents of a given Person.
 
@@ -357,7 +395,8 @@ GRIDS = [
         di_zhi=DiZhi.ZI,
         palace=Palace.CAI_BO,
         # alpha_stars=[StarType.TIAN_JI],
-        stars=[Star(type=StarType.TIAN_JI)],
+        stars=[Star(type=StarType.TIAN_JI),
+               Star(type=StarType.LU_CUN)],
         da_xian_start=85,
         da_xian_end=94,
     ),
@@ -367,7 +406,10 @@ GRIDS = [
         palace=Palace.ZI_NV,
         # alpha_stars=[StarType.ZI_WEI, StarType.PO_JUN],
         stars=[Star(type=StarType.ZI_WEI),
-               Star(type=StarType.PO_JUN)],
+               Star(type=StarType.PO_JUN),
+               Star(type=StarType.WEN_QU),
+               Star(type=StarType.WEN_CHANG),
+               Star(type=StarType.QING_YANG)],
         da_xian_start=95,
         da_xian_end=104,
     ),
@@ -385,7 +427,8 @@ GRIDS = [
         di_zhi=DiZhi.MAO,
         palace=Palace.XIONG_DI,
         # alpha_stars=[StarType.TIAN_FU],
-        stars=[Star(type=StarType.TIAN_FU)],
+        stars=[Star(type=StarType.TIAN_FU),
+               Star(type=StarType.ZUO_FU)],
         da_xian_start=115,
         da_xian_end=124,
     ),
@@ -461,7 +504,8 @@ GRIDS = [
         di_zhi=DiZhi.HAI,
         palace=Palace.JI_E,
         # alpha_stars=[],
-        stars=[],
+        stars=[Star(type=StarType.YOU_BI),
+               Star(type=StarType.TUO_LUO)],
         da_xian_start=75,
         da_xian_end=84,
     ),

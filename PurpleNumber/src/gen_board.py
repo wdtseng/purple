@@ -87,7 +87,7 @@ def __populate_da_xian(board, person):
         board.grids[(ming_dizhi_offset + dizhi_index) % len(DiZhi)].da_xian_start = board.element_number + dizhi_index * 10
         board.grids[(ming_dizhi_offset + dizhi_index) % len(DiZhi)].da_xian_end = board.element_number + dizhi_index * 10 + 9
 
-def __populate_alpha_star(board, person):
+def __populate_alpha_stars(board, person):
     # Step 1: Figure out where zi_wei is
     rem = board.element_number - person.lunar_day_of_month % board.element_number
     ziwei_offset_from_chou = (person.lunar_day_of_month + rem) / board.element_number + (1 if rem % 2 == 0 else -1) * rem
@@ -121,6 +121,30 @@ def __populate_alpha_star(board, person):
     for index in xrange(len(tianfu_alpha_star)):
         idx = (tianfu_dizhi_offset + tianfu_alpha_star_offset[index]) % len(DiZhi)
         board.grids[idx].stars.append(Star(type=tianfu_alpha_star[index]))
+
+def __populate_beta_stars(board, person):
+    # Step 1: Figure out where zuofu is
+    zuofu_dizhi_offset = (DiZhi.CHEN.number + person.lunar_month_of_year - 1) % len(DiZhi)
+    board.grids[zuofu_dizhi_offset].stars.append(Star(type=StarType.ZUO_FU))
+
+    # Step 2: Figure out where youbi is
+    youbi_dizhi_offset = (DiZhi.XU.number - person.lunar_month_of_year + 1 + len(DiZhi)) % len(DiZhi)
+    board.grids[youbi_dizhi_offset].stars.append(Star(type=StarType.YOU_BI))
+
+    # Step 3: Figure out where wenqu is
+    wenqu_dizhi_offset = (DiZhi.CHEN.number + person.time_di_zhi.number) % len(DiZhi)
+    board.grids[wenqu_dizhi_offset].stars.append(Star(type=StarType.WEN_QU))
+
+    # Step 4: Figure out where wenchang is
+    wenchang_dizhi_offset = (DiZhi.XU.number - person.time_di_zhi.number + len(DiZhi)) % len(DiZhi)
+    board.grids[wenchang_dizhi_offset].stars.append(Star(type=StarType.WEN_CHANG))
+
+    # Step 5: Figure out where lucun, qingyang, and tuoluo is
+    lucun_dizhi = [DiZhi.YIN, DiZhi.MAO, DiZhi.SI, DiZhi.WU, DiZhi.SI, DiZhi.WU, DiZhi.SHEN, DiZhi.YOU, DiZhi.HAI, DiZhi.ZI]
+    lucun_dizhi_offset = lucun_dizhi[person.year_tian_gan.number].number
+    board.grids[lucun_dizhi_offset].stars.append(Star(type=StarType.LU_CUN))
+    board.grids[(lucun_dizhi_offset + 1) % len(DiZhi)].stars.append(Star(type=StarType.QING_YANG))
+    board.grids[(lucun_dizhi_offset - 1 + len(DiZhi)) % len(DiZhi)].stars.append(Star(type=StarType.TUO_LUO))
 
 #----------DiZhi Calculation Helper Function-------------#
 
@@ -170,7 +194,10 @@ def generate_board(person):
     __populate_da_xian(board, person)
 
     # Calculate where the alpha_stars
-    __populate_alpha_star(board, person)
+    __populate_alpha_stars(board, person)
+
+    # Calculate where the beta_stars
+    __populate_beta_stars(board, person)
 
     # For debugging: print the board. This breaks when running on app engine due
     # to utf-8 logging bug.
