@@ -23,8 +23,8 @@
     class="grid">
     <div class="tdContainer">
       <div class="stars vertical">
-        {% for alpha_star in grid.alpha_stars %}
-        {% call vertical_info() %}{{ chinese[alpha_star] }}{% endcall %}
+        {% for star in grid.stars %}
+        {% call vertical_info() %}{{ chinese[star.type] }}{% endcall %}
         {% endfor %}
       </div>
       <div class="palace small">
@@ -60,8 +60,8 @@
               {% call vertical_info() %}{{ chinese[board.person_taichi] }}{{ chinese[board.person.sex]}}{% endcall %}
               {% call vertical_info() %}{{ chinese[board.board_taichi] }}宮{% endcall %}
               {% call vertical_info() %}{{ chinese[board.element] }}{{ chinese[board.element_number] }}局{% endcall %}
-              {% call vertical_info() %}命主：{{ chinese[board.destiny_star] }}{% endcall %}
-              {% call vertical_info() %}身主：{{ chinese[board.body_star] }}{% endcall %}
+              {% call vertical_info() %}命主：{{ chinese[board.destiny_star.type] }}{% endcall %}
+              {% call vertical_info() %}身主：{{ chinese[board.body_star.type] }}{% endcall %}
             </div>
           </div>
         </td>
