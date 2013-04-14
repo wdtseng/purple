@@ -8,7 +8,7 @@ table.board {
 }
 table.board td {
 	overflow: hidden;
-	padding: 10px;
+	padding: 8px;
 }
 td.grid {
 	border: 1px solid black;
@@ -17,7 +17,7 @@ td.grid {
 	width: 150px;
 }
 td.center {
-	height: 360px;
+	height: 300px;
 }
 div.tdContainer {
 	position: relative;
@@ -51,17 +51,17 @@ div.gridTianGanDiZhi {
 }
 .small {
 	font-size: 1.5em;
-	line-height: 1.875em;
+	line-height: normal;
 	margin: 0;
 }
 .regular {
 	font-size: 1.8em;
-	line-height: 1.4em;
+	line-height: normal;
 	margin: 0;
 }
 .large {
 	font-size: 3em;
-	line-height: 1em;
+	line-height: normal;
 	margin: 0;
 }
 p.name {
