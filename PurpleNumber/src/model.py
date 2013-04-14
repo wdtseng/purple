@@ -57,9 +57,26 @@ class StarType(messages.Enum):
     WEN_QU = 102
     HUO_XING = 103
     WEN_CHANG = 104
-    
-ALPHA_STAR_END = 100
-BETA_STAR_END = 200
+
+ALPHA_STARS = [StarType.ZI_WEI,
+               StarType.TIAN_JI,
+               StarType.TAI_YANG,
+               StarType.WU_QU,
+               StarType.TIAN_TONG,
+               StarType.LIAN_ZHEN,
+               StarType.TIAN_FU,
+               StarType.TAI_YIN,
+               StarType.TAN_LANG,
+               StarType.JU_MEN,
+               StarType.TIAN_XIANG,
+               StarType.TIAN_LIANG,
+               StarType.QI_SHA,
+               StarType.PO_JUN]
+
+BETA_STARS = [StarType.LU_CUN,
+              StarType.WEN_QU,
+              StarType.HUO_XING,
+              StarType.WEN_CHANG]
 
 class Palace(messages.Enum):
     """Enum for 宮位 constants."""
@@ -110,9 +127,9 @@ class Star(messages.Message):
 
 def get_rank(star_type):
     assert isinstance(star_type, StarType)
-    if star_type.number <= ALPHA_STAR_END:
+    if star_type in ALPHA_STARS:
         return 0
-    elif star_type.number <= BETA_STAR_END:
+    elif star_type in BETA_STARS:
         return 1
     else:
         return 2

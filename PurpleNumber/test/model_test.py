@@ -16,6 +16,8 @@ from model import CHINESE
 from model import SAMPLE
 from model import print_board
 from model import get_rank
+from model import ALPHA_STARS
+from model import BETA_STARS
 
 class TestModel(unittest.TestCase):
     """Test the CHINESE dictionary defined in model."""
@@ -35,26 +37,6 @@ class TestModel(unittest.TestCase):
 class TestUtilityFunctions(unittest.TestCase):
     """ Test the utility function in model """
     
-    def test_get_rank(self):
-        alpha = [StarType.ZI_WEI,
-                 StarType.TIAN_JI,
-                 StarType.TAI_YANG,
-                 StarType.WU_QU,
-                 StarType.TIAN_TONG,
-                 StarType.LIAN_ZHEN,
-                 StarType.TIAN_FU,
-                 StarType.TAI_YIN,
-                 StarType.TAN_LANG,
-                 StarType.JU_MEN,
-                 StarType.TIAN_XIANG,
-                 StarType.TIAN_LIANG,
-                 StarType.QI_SHA,
-                 StarType.PO_JUN]
-        beta = [StarType.LU_CUN,
-                StarType.WEN_QU,
-                StarType.HUO_XING,
-                StarType.WEN_CHANG]
-        for type in alpha:
-            self.assertEqual(0, get_rank(type))
-        for type in beta:
-            self.assertEqual(1, get_rank(type))
+    def test_rank_coverage(self):
+        for star_type in StarType:
+            self.assertTrue(star_type in ALPHA_STARS or star_type in BETA_STARS)
