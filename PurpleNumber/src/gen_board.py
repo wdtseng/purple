@@ -4,8 +4,7 @@
 @author: Robert Tseng
 """
 from model import *
-
-
+from model_util import *
 #----------Population Helper Function-------------#
 
 def __populate_tiangan(board, person):
@@ -146,6 +145,47 @@ def __populate_beta_stars(board, person):
     board.grids[(lucun_dizhi_offset + 1) % len(DiZhi)].stars.append(Star(type=StarType.QING_YANG))
     board.grids[(lucun_dizhi_offset - 1 + len(DiZhi)) % len(DiZhi)].stars.append(Star(type=StarType.TUO_LUO))
 
+    # Step 6: Figure out where tiankui is
+    tiankui_dizhi = [DiZhi.WEI, DiZhi.SHEN, DiZhi.YOU, DiZhi.HAI, DiZhi.CHOU, DiZhi.ZI, DiZhi.CHOU, DiZhi.YIN, DiZhi.MAO, DiZhi.SI]
+    tiankui_dizhi_offset = tiankui_dizhi[person.year_tian_gan.number].number
+    board.grids[tiankui_dizhi_offset].stars.append(Star(type=StarType.TIAN_KUI))
+
+    # Step 7: Figure out where tianrong is
+    tianrong_dizhi = [DiZhi.CHOU, DiZhi.ZI, DiZhi.HAI, DiZhi.YOU, DiZhi.WEI, DiZhi.SHEN, DiZhi.WEI, DiZhi.WU, DiZhi.SI, DiZhi.MAO]
+    tianrong_dizhi_offset = tianrong_dizhi[person.year_tian_gan.number].number
+    board.grids[tianrong_dizhi_offset].stars.append(Star(type=StarType.TIAN_RONG))
+
+    # Step 8: Figure out where mingma and yuema is (both are calculated the same way, except
+    #         one look at year dizhi and another look at month dizhi
+    tianma_dizhi = [DiZhi.YIN, DiZhi.HAI, DiZhi.SHEN, DiZhi.SI]
+    mingma_dizhi_offset = tianma_dizhi[person.year_di_zhi.number % 4].number
+    yuema_dizhi_offset = tianma_dizhi[(person.lunar_month_of_year + DiZhi.YIN.number - 1) % 4].number
+    board.grids[mingma_dizhi_offset].stars.append(Star(type=StarType.MING_MA))
+    board.grids[yuema_dizhi_offset].stars.append(Star(type=StarType.YUE_MA))
+
+
+
+def __populate_sihua(board, person):
+    sihua_matrix = [
+        [StarType.LIAN_ZHEN  , StarType.PO_JUN     , StarType.WU_QU      , StarType.TAI_YANG ],
+        [StarType.TIAN_JI    , StarType.TIAN_LIANG , StarType.ZI_WEI     , StarType.TAI_YIN  ],
+        [StarType.TIAN_TONG  , StarType.TIAN_JI    , StarType.WEN_CHANG  , StarType.LIAN_ZHEN],
+        [StarType.TAI_YIN    , StarType.TIAN_TONG  , StarType.TIAN_JI    , StarType.JU_MEN   ],
+        [StarType.TAN_LANG   , StarType.TAI_YIN    , StarType.YOU_BI     , StarType.TIAN_JI  ],
+        [StarType.WU_QU      , StarType.TAN_LANG   , StarType.TIAN_LIANG , StarType.WEN_QU   ],
+        [StarType.TAI_YANG   , StarType.WU_QU      , StarType.TAI_YIN    , StarType.TIAN_TONG],
+        [StarType.JU_MEN     , StarType.TAI_YIN    , StarType.WEN_QU     , StarType.WEN_CHANG],
+        [StarType.TIAN_LIANG , StarType.ZI_WEI     , StarType.ZUO_FU     , StarType.WU_QU    ],
+        [StarType.PO_JUN     , StarType.JU_MEN     , StarType.TAI_YIN    , StarType.TAN_LANG ]]
+
+    sihua_stars = sihua_matrix[person.year_tian_gan.number]
+    for sihua in SiHua:
+        sihua_star = sihua_stars[sihua.number]
+        for grid in board.grids:
+            star_found = find_star_in_grid(grid, sihua_star)
+            if star_found is not None:
+                star_found.si_hua = sihua    
+
 #----------DiZhi Calculation Helper Function-------------#
 
 def __calculate_ming_dizhi_offset(person):
@@ -198,6 +238,9 @@ def generate_board(person):
 
     # Calculate where the beta_stars
     __populate_beta_stars(board, person)
+
+    # Calculate the sihua
+    __populate_sihua(board, person)
 
     # For debugging: print the board. This breaks when running on app engine due
     # to utf-8 logging bug.

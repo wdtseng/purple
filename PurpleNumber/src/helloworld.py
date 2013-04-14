@@ -8,6 +8,7 @@ import os
 import webapp2
 from gen_board import generate_board
 import model
+import model_util
 from model import CHINESE
 from google.appengine.api import users
 
@@ -39,6 +40,7 @@ def board_context(board):
     values = {
         "board": board,
         "chinese": CHINESE,
+        "model_util": model_util
     }
     values["solar_birthday"] = u"陽曆%s　%s　%s" % (
         num_to_chinese(person.year, 4),
