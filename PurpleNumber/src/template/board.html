@@ -1,91 +1,90 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>紫微斗數自己來</title>
-		<link rel="stylesheet" href="css/screen.css" type="text/css" media="screen, projection, print"/>
-		<!--[if lt IE 8]>
-		  <link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection">
-		<![endif]-->
-		<link rel="stylesheet" href="css/board.css" type="text/css"/>
-	</head>
+  <head>
+    <title>紫微斗數自己來</title>
+    <link rel="stylesheet" href="css/screen.css" type="text/css" media="screen, projection, print"/>
+    <link rel="stylesheet" href="css/board.css" type="text/css"/>
+		<script
+			src="script/board.js" language="javascript" type="text/javascript">
+		</script>
+  </head>
 
-	<!-- Macro for a simple vertical word. -->
-	{% macro vertical_info() -%}
-	<p class="vertical regular">{{ caller() }}</p>
-	{%- endmacro %}
+  <!-- Macro for a simple vertical word. -->
+  {% macro vertical_info() -%}
+  <p class="vertical regular">{{ caller() }}</p>
+  {%- endmacro %}
+  {% macro vertical_info_small() -%}
+  <p class="vertical small">{{ caller() }}</p>
+  {%- endmacro %}
 
-	<!-- Macro for a grid. -->
-	{% macro grid_macro(grid)-%}
-	<div class="grid">
-		<div class="stars vertical">
-			{% for alpha_star in grid.alpha_stars %}
-			  {% call vertical_info() %}{{ chinese[alpha_star] }}{% endcall %}
-			{% endfor %}
-		</div>
-		<div class="palace regular">
-			{{ chinese[grid.palace] }}
-			{%- if grid.is_body_palace -%}
-			  (身)
-			{%- endif -%}
-		</div>
-	</div>
-	{%- endmacro %}
+  <!-- Macro for a grid. -->
+  {% macro grid_macro(grid)-%}
+  <td id="grid{{ grid.di_zhi.number }}"
+    class="grid">
+    <div class="tdContainer">
+      <div class="stars vertical">
+        {% for alpha_star in grid.alpha_stars %}
+        {% call vertical_info() %}{{ chinese[alpha_star] }}{% endcall %}
+        {% endfor %}
+      </div>
+      <div class="palace small">
+        {{ chinese[grid.palace] }}
+        {%- if grid.is_body_palace -%}
+          (身)
+        {%- endif %} ({{ grid.da_xian_start}}-{{grid.da_xian_end}})
+      </div>
+      <div class="tian-gan-di-zhi vertical small">
+        {{ chinese[grid.tian_gan] }}{{ chinese[grid.di_zhi] }}
+      </div>
+    </div>
+  </td>
+  {%- endmacro %}
 
   <body>
-		<table class="board">
-			<tr>
-				<td class="grid">{{ grid_macro(board.grids[5]) }}</td>
-				<td class="grid">{{ grid_macro(board.grids[6]) }}</td>
-				<td class="grid">{{ grid_macro(board.grids[7]) }}</td>
-				<td class="grid">{{ grid_macro(board.grids[8]) }}</td>
-			</tr>
-			<tr>
-				<td class="grid">{{ grid_macro(board.grids[4]) }}</td>
-				<td class="center" colspan="2" rowspan="2">
-					<div class="grid">
-					<div class="vertical center">
-						{% call vertical_info() %}{{ solar_birthday }}{% endcall %}
-						{% call vertical_info() %}{{ birthday }}{% endcall %}
-						{% call vertical_info() %}{{ lunar_birthday }}{% endcall %}
-						<p class="name">{{ board.person.name }}</p>
-						{% call vertical_info() %}{{ chinese[board.person_taichi] }}{{ chinese[board.person.sex]}}{% endcall %}
-						{% call vertical_info() %}{{ chinese[board.board_taichi] }}宮{% endcall %}
-						{% call vertical_info() %}{{ chinese[board.element] }}{{ chinese[board.element_number] }}局{% endcall %}
-						{% call vertical_info() %}命主：{{ chinese[board.destiny_star] }}{% endcall %}
-						{% call vertical_info() %}身主：{{ chinese[board.body_star] }}{% endcall %}
-					</div>
-				</div>
-				</td>
-				<td class="grid">{{ grid_macro(board.grids[9]) }}</td>
-			</tr>
-			<tr>
-				<td class="grid">{{ grid_macro(board.grids[3]) }}</td>
-				<!-- Two cells are taken by the center cell from previous row. -->
-				<td class="grid">{{ grid_macro(board.grids[10]) }}</td>
-			</tr>
-			<tr>
-				<td class="grid">{{ grid_macro(board.grids[2]) }}</td>
-				<td class="grid">{{ grid_macro(board.grids[1]) }}</td>
-				<td class="grid">{{ grid_macro(board.grids[0]) }}</td>
-				<td class="grid">{{ grid_macro(board.grids[11]) }}</td>
-			</tr>
-		</table>
-
-    {% for greeting in greetings %}
-      {% if greeting.author %}
-        <b>{{ greeting.author }}</b> wrote:
-      {% else %}
-        An anonymous person wrote:
-      {% endif %}
-      <blockquote>{{ greeting.content|escape }}</blockquote>
-    {% endfor %}
-
-    <form action="/sign" method="post">
-      <div><textarea name="content" rows="3" cols="60"></textarea></div>
-      <div><input type="submit" value="Sign Guestbook"></div>
-    </form>
-
-    <a href="{{ url }}">{{ url_linktext }}</a>
-
+    <table id="board" class="board">
+      <tr>
+        {{ grid_macro(board.grids[5]) }}
+        {{ grid_macro(board.grids[6]) }}
+        {{ grid_macro(board.grids[7]) }}
+        {{ grid_macro(board.grids[8]) }}
+      </tr>
+      <tr>
+        {{ grid_macro(board.grids[4]) }}
+        <td class="center" colspan="2" rowspan="2">
+          <div class="tdContainer">
+            <div class="vertical center">
+              {% call vertical_info_small() %}{{ solar_birthday }}{% endcall %}
+              {% call vertical_info_small() %}{{ birthday }}{% endcall %}
+              {% call vertical_info_small() %}{{ lunar_birthday }}{% endcall %}
+              <p class="large name">{{ board.person.name }}</p>
+              {% call vertical_info() %}{{ chinese[board.person_taichi] }}{{ chinese[board.person.sex]}}{% endcall %}
+              {% call vertical_info() %}{{ chinese[board.board_taichi] }}宮{% endcall %}
+              {% call vertical_info() %}{{ chinese[board.element] }}{{ chinese[board.element_number] }}局{% endcall %}
+              {% call vertical_info() %}命主：{{ chinese[board.destiny_star] }}{% endcall %}
+              {% call vertical_info() %}身主：{{ chinese[board.body_star] }}{% endcall %}
+            </div>
+          </div>
+        </td>
+        {{ grid_macro(board.grids[9]) }}
+      </tr>
+      <tr>
+        {{ grid_macro(board.grids[3]) }}
+        <!-- Two cells are taken by the center cell from previous row. -->
+        {{ grid_macro(board.grids[10]) }}
+      </tr>
+      <tr>
+        {{ grid_macro(board.grids[2]) }}
+        {{ grid_macro(board.grids[1]) }}
+        {{ grid_macro(board.grids[0]) }}
+        {{ grid_macro(board.grids[11]) }}
+      </tr>
+    </table>
+		{% for grid in board.grids %}
+		{% if grid.palace.number == 0 %}
+		<script language="javascript" type="text/javascript">
+			highlightTheFour({{ grid.di_zhi.number }})
+		</script>
+		{% endif %}
+		{% endfor %}
   </body>
 </html>

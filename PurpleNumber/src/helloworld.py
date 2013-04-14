@@ -6,14 +6,16 @@
 import jinja2
 import os
 import webapp2
+from gen_board import generate_board
 import model
 from model import CHINESE
+from google.appengine.api import users
 
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__) + '/template'))
-
-class Empty():
-    pass
+EMAIL_WHITELIST = frozenset(["wdtseng@gmail.com",
+                             "kcrtseng@gmail.com",
+                             "hcctai@gmail.com"])
 
 def num_to_chinese(number, length=None):
     assert isinstance(number, int)
@@ -33,17 +35,8 @@ def num_to_chinese(number, length=None):
 
 def board_context(board):
     assert isinstance(board, model.Board)
-    greeting1 = Empty()
-    greeting2 = Empty()
-    greeting1.author = "dustin"
-    greeting1.content = "hi ho"
-    greeting2.author = "robert"
-    greeting2.content = "fee fie"
     person = board.person
     values = {
-        "greetings": [greeting1, greeting2],
-        "url": "http://hi",
-        "url_linktext": "hi",
         "board": board,
         "chinese": CHINESE,
     }
@@ -63,19 +56,34 @@ def board_context(board):
     )
     return values
 
+def is_current_user_whitelisted():
+    """Checks whether the currently signed in user is whitelisted.
+    Returns:
+        True if and only if a user is signed in, and is in the whitelist.
+    """
+    current_user = users.get_current_user()
+    print "current user: user_id=%s, email=%s" % (current_user.user_id(),
+                                                  current_user.email())
+    return (current_user
+            and current_user.user_id() is not None
+            and current_user.email() in EMAIL_WHITELIST)
+
 class MainPage(webapp2.RequestHandler):
     def get(self):
-        board_template = jinja_environment.get_template('board.html')
-        self.response.headers['Content-Type'] = (
-            "text/html; charset=utf-8")
-        self.response.out.write(board_template.render(board_context(model.SAMPLE)))
+        if is_current_user_whitelisted():
+            board_template = jinja_environment.get_template("board.html")
+            person = model.SAMPLE_PERSON
+            board = generate_board(person)
+            self.response.headers["Content-Type"] = "text/html; charset=utf-8"
+            self.response.out.write(board_template.render(board_context(board)))
+        else:
+            self.response.status = "403 Forbidden"
 
 class RobertPage(webapp2.RequestHandler):
     def get(self):
-        self.response.headers['Content-Type'] = (
-            "Content-Type: text/html; charset=utf-8")
-        self.response.write('Booraga! Bonjour, 曾冠傑!')
+        self.response.headers["Content-Type"] = "text/html; charset=utf-8"
+        self.response.write("Booraga, 曾冠傑!")
 
-app = webapp2.WSGIApplication([('/', MainPage),
-                               ('/robert', RobertPage)],
+app = webapp2.WSGIApplication([("/", MainPage),
+                               ("/robert", RobertPage)],
                               debug=True)

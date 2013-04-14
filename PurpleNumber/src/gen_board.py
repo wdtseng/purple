@@ -172,8 +172,9 @@ def generate_board(person):
     # Calculate where the alpha_stars
     __populate_alpha_star(board, person)
 
-    # For debugging: print the board
-    print_board(board)
+    # For debugging: print the board. This breaks when running on app engine due
+    # to utf-8 logging bug.
+    # print_board(board)
     return board
 
 

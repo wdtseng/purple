@@ -8,8 +8,15 @@ handlers:
 - url: /css
   static_dir: css
 
+- url: /script
+  static_dir: script
+
+- url: /svg
+  static_dir: svg
+
 - url: /.*
   script: helloworld.app
+  login: required
 
 libraries:
 - name: jinja2
