@@ -109,6 +109,17 @@ p.name {
 	margin: 0 1em;
 }
 td.the-four {
-  /* 命財官遷 */
-	background: rgba(199, 230, 199, 0.3) !important;
+	background: rgba(199, 230, 199, 0.4) !important;
+}
+td.ming-grid {
+  /* 命: light green. */
+	background: rgba(150, 240, 150, 0.4) !important;
+}
+td.triad-grid {
+  /* 官財: light yellow. */
+	background: rgba(240, 240, 150, 0.4) !important;
+}
+td.opposite-grid {
+  /* 遷: light blue */
+	background: rgba(150, 150, 240, 0.4) !important;
 }

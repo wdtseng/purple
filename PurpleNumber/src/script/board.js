@@ -4,10 +4,10 @@ function highlightTheFour(gridNumber) {
   for (var index = 0; index < 12; ++index) {
     document.getElementById('grid' + index).className = 'grid'
   }
-  for (var index = 0; index < offsets.length; ++index) {
-    var gridToHighlight = (gridNumber + offsets[index]) % 12;
-    document.getElementById('grid' + gridToHighlight).className = 'grid the-four'
-  }
+  document.getElementById('grid' + gridNumber).className = 'grid ming-grid'
+  document.getElementById('grid' + ((gridNumber + 4) % 12)).className = 'grid triad-grid'
+  document.getElementById('grid' + ((gridNumber + 8) % 12)).className = 'grid triad-grid'
+  document.getElementById('grid' + ((gridNumber + 6) % 12)).className = 'grid opposite-grid'
 }
 
 window.onload = function() {
