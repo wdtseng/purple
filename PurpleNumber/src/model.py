@@ -64,7 +64,22 @@ class StarType(messages.Enum):
     TIAN_RONG = 109
     MING_MA = 110
     YUE_MA = 111
-    HUO_XING = 120
+    XI_SHEN = 112
+    HUA_GAI = 113
+    HONG_LUAN = 114
+    TIAN_XI = 115
+    GU_CHEN = 116
+    GUA_SU = 117
+    TIAN_KU = 118
+    TIAN_XU = 119
+    TIAN_KONG = 120
+    TIAN_XING = 121
+    TIAN_YAO = 122
+    YIN_SHA = 123
+    DI_KONG = 124
+    DI_JIE = 125
+    HUO_XING = 126
+    LING_XING = 127
 
 ALPHA_STARS = [StarType.ZI_WEI,
                StarType.TIAN_JI,
@@ -92,7 +107,22 @@ BETA_STARS = [StarType.ZUO_FU,
               StarType.TIAN_RONG,
               StarType.MING_MA,
               StarType.YUE_MA,
-              StarType.HUO_XING]
+              StarType.XI_SHEN,
+              StarType.HUA_GAI,
+              StarType.HONG_LUAN,
+              StarType.TIAN_XI,
+              StarType.GU_CHEN,
+              StarType.GUA_SU,
+              StarType.TIAN_KU,
+              StarType.TIAN_XU,
+              StarType.TIAN_KONG,
+              StarType.TIAN_XING,
+              StarType.TIAN_YAO,
+              StarType.YIN_SHA,
+              StarType.DI_KONG,
+              StarType.DI_JIE,
+              StarType.HUO_XING,
+              StarType.LING_XING]
 
 class Palace(messages.Enum):
     """Enum for 宮位 constants."""
@@ -268,7 +298,22 @@ CHINESE = {
     StarType.TIAN_RONG: u"天鉞",
     StarType.MING_MA: u"命馬",
     StarType.YUE_MA: u"月馬",
+    StarType.XI_SHEN: u"息神",
+    StarType.HUA_GAI: u"華蓋",
+    StarType.HONG_LUAN: u"紅鸞",
+    StarType.TIAN_XI: u"天喜",
+    StarType.GU_CHEN: u"孤辰",
+    StarType.GUA_SU: u"寡宿",
+    StarType.TIAN_KU: u"天哭",
+    StarType.TIAN_XU: u"天虛",
+    StarType.TIAN_KONG: u"天空",
+    StarType.TIAN_XING: u"天刑",
+    StarType.TIAN_YAO: u"天姚",
+    StarType.YIN_SHA: u"陰煞",
+    StarType.DI_KONG: u"地空",
+    StarType.DI_JIE: u"地劫",
     StarType.HUO_XING: u"火星",
+    StarType.LING_XING: u"鈴星",
 
     SiHua.HUA_LU: u"化祿",
     SiHua.HUA_QUAN: u"化權",
@@ -410,7 +455,9 @@ GRIDS = [
         palace=Palace.CAI_BO,
         # alpha_stars=[StarType.TIAN_JI],
         stars=[Star(type=StarType.TIAN_JI),
-               Star(type=StarType.LU_CUN)],
+               Star(type=StarType.LU_CUN),
+               Star(type=StarType.HONG_LUAN),
+               Star(type=StarType.TIAN_YAO)],
         da_xian_start=85,
         da_xian_end=94,
     ),
@@ -423,7 +470,8 @@ GRIDS = [
                Star(type=StarType.PO_JUN, si_hua=SiHua.HUA_LU),
                Star(type=StarType.WEN_QU),
                Star(type=StarType.WEN_CHANG),
-               Star(type=StarType.QING_YANG)],
+               Star(type=StarType.QING_YANG),
+               Star(type=StarType.GUA_SU)],
         da_xian_start=95,
         da_xian_end=104,
     ),
@@ -432,7 +480,7 @@ GRIDS = [
         di_zhi=DiZhi.YIN,
         palace=Palace.FU_QI,
         # alpha_stars=[],
-        stars=[],
+        stars=[Star(type=StarType.DI_KONG)],
         da_xian_start=105,
         da_xian_end=114,
     ),
@@ -443,7 +491,8 @@ GRIDS = [
         # alpha_stars=[StarType.TIAN_FU],
         stars=[Star(type=StarType.TIAN_FU),
                Star(type=StarType.ZUO_FU),
-               Star(type=StarType.TIAN_RONG)],
+               Star(type=StarType.TIAN_RONG),
+               Star(type=StarType.TIAN_KU)],
         da_xian_start=115,
         da_xian_end=124,
     ),
@@ -452,7 +501,9 @@ GRIDS = [
         di_zhi=DiZhi.CHEN,
         palace=Palace.MING_GONG,
         # alpha_stars=[StarType.TAI_YIN],
-        stars=[Star(type=StarType.TAI_YIN, si_hua=SiHua.HUA_KE)],
+        stars=[Star(type=StarType.TAI_YIN, si_hua=SiHua.HUA_KE),
+               Star(type=StarType.TIAN_KONG),
+               Star(type=StarType.YIN_SHA)],
         da_xian_start=5,
         da_xian_end=14,
     ),
@@ -464,7 +515,8 @@ GRIDS = [
         stars=[Star(type=StarType.LIAN_ZHEN),
                Star(type=StarType.TAN_LANG, si_hua=SiHua.HUA_JI),
                Star(type=StarType.TIAN_KUI),
-               Star(type=StarType.MING_MA)],
+               Star(type=StarType.MING_MA),
+               Star(type=StarType.GU_CHEN)],
         da_xian_start=15,
         da_xian_end=24,
     ),
@@ -473,7 +525,10 @@ GRIDS = [
         di_zhi=DiZhi.WU,
         palace=Palace.FU_DE,
         # alpha_stars=[StarType.JU_MEN],
-        stars=[Star(type=StarType.JU_MEN, si_hua=SiHua.HUA_QUAN)],
+        stars=[Star(type=StarType.JU_MEN, si_hua=SiHua.HUA_QUAN),
+               Star(type=StarType.XI_SHEN),
+               Star(type=StarType.TIAN_XI),
+               Star(type=StarType.HUO_XING)],
         da_xian_start=25,
         da_xian_end=34,
     ),
@@ -482,7 +537,9 @@ GRIDS = [
         di_zhi=DiZhi.WEI,
         palace=Palace.TIAN_ZHAI,
         # alpha_stars=[StarType.TIAN_XIANG],
-        stars=[Star(type=StarType.TIAN_XIANG)],        
+        stars=[Star(type=StarType.TIAN_XIANG),
+               Star(type=StarType.HUA_GAI),
+               Star(type=StarType.LING_XING)],
         da_xian_start=35,
         da_xian_end=44,
     ),
@@ -492,7 +549,9 @@ GRIDS = [
         palace=Palace.GUAN_LU,
         # alpha_stars=[StarType.TIAN_TONG, StarType.TIAN_LIANG],
         stars=[Star(type=StarType.TIAN_TONG), 
-               Star(type=StarType.TIAN_LIANG)],        
+               Star(type=StarType.TIAN_LIANG),
+               Star(type=StarType.TIAN_XING),
+               Star(type=StarType.DI_JIE)],
         da_xian_start=45,
         da_xian_end=54,
     ),
@@ -502,7 +561,8 @@ GRIDS = [
         palace=Palace.JIAO_YOU,
         # alpha_stars=[StarType.WU_QU, StarType.QI_SHA],
         stars=[Star(type=StarType.WU_QU),
-               Star(type=StarType.QI_SHA)],     
+               Star(type=StarType.QI_SHA),
+               Star(type=StarType.TIAN_XU)],
         da_xian_start=55,
         da_xian_end=64,
     ),

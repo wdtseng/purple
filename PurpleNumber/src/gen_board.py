@@ -163,7 +163,59 @@ def __populate_beta_stars(board, person):
     board.grids[mingma_dizhi_offset].stars.append(Star(type=StarType.MING_MA))
     board.grids[yuema_dizhi_offset].stars.append(Star(type=StarType.YUE_MA))
 
+    # Step 9: Figure out where xishen and huagai is
+    xishen_dizhi_offset = (mingma_dizhi_offset + 1) % len(DiZhi)
+    huagai_dizhi_offset = (mingma_dizhi_offset + 2) % len(DiZhi)
+    board.grids[xishen_dizhi_offset].stars.append(Star(type=StarType.XI_SHEN))
+    board.grids[huagai_dizhi_offset].stars.append(Star(type=StarType.HUA_GAI))
 
+    # Step 10: Figure out where hongluan and tianxi is
+    hongluan_dizhi_offset = (DiZhi.MAO.number - person.year_di_zhi.number + len(DiZhi)) % len(DiZhi)
+    tianxi_dizhi_offset = (hongluan_dizhi_offset + 6) % len(DiZhi)
+    board.grids[hongluan_dizhi_offset].stars.append(Star(type=StarType.HONG_LUAN))
+    board.grids[tianxi_dizhi_offset].stars.append(Star(type=StarType.TIAN_XI))
+
+    # Step 11: Figure out where guchen and guasu is
+    guchen_dizhi = [DiZhi.SI, DiZhi.SHEN, DiZhi.HAI, DiZhi.YIN]
+    guasu_dizhi = [DiZhi.CHOU, DiZhi.CHEN, DiZhi.WEI, DiZhi.XU]
+    index = (person.year_di_zhi.number - DiZhi.YIN.number) / 3
+    if person.year_di_zhi == DiZhi.ZI or person.year_di_zhi == DiZhi.CHOU:
+        index = 3
+    guchen_dizhi_offset = guchen_dizhi[index].number
+    guasu_dizhi_offset = guasu_dizhi[index].number
+    board.grids[guchen_dizhi_offset].stars.append(Star(type=StarType.GU_CHEN))
+    board.grids[guasu_dizhi_offset].stars.append(Star(type=StarType.GUA_SU))
+
+    # Step 12: Figure out where tianku, tianxu, and tiankong is
+    tianku_dizhi_offset = (DiZhi.WU.number - person.year_di_zhi.number + len(DiZhi)) % len(DiZhi)
+    tianxu_dizhi_offset = (DiZhi.WU.number + person.year_di_zhi.number + len(DiZhi)) % len(DiZhi)
+    tiankong_dizhi_offset = (person.year_di_zhi.number + 1) % len(DiZhi)
+    board.grids[tianku_dizhi_offset].stars.append(Star(type=StarType.TIAN_KU))
+    board.grids[tianxu_dizhi_offset].stars.append(Star(type=StarType.TIAN_XU))
+    board.grids[tiankong_dizhi_offset].stars.append(Star(type=StarType.TIAN_KONG))
+
+    # Step 13: Figure out where tianxing, tianyao, and yinsha is
+    tianxing_dizhi_offset = (DiZhi.YOU.number + person.lunar_month_of_year - 1 + len(DiZhi)) % len(DiZhi)
+    tianyao_dizhi_offset = (DiZhi.CHOU.number + person.lunar_month_of_year - 1 + len(DiZhi)) % len(DiZhi)
+    yinsha_dizhi_offset = (DiZhi.YIN.number - (((person.lunar_month_of_year - 1) % 6) * 2) + len(DiZhi)) % len(DiZhi)
+    board.grids[tianxing_dizhi_offset].stars.append(Star(type=StarType.TIAN_XING))
+    board.grids[tianyao_dizhi_offset].stars.append(Star(type=StarType.TIAN_YAO))
+    board.grids[yinsha_dizhi_offset].stars.append(Star(type=StarType.YIN_SHA))
+
+    # Step 14: Figure out where dikong and dijie is
+    dikong_dizhi_offset = (DiZhi.HAI.number - person.time_di_zhi.number + len(DiZhi)) % len(DiZhi)
+    dijie_dizhi_offset = (DiZhi.HAI.number + person.time_di_zhi.number + len(DiZhi)) % len(DiZhi)
+    board.grids[dikong_dizhi_offset].stars.append(Star(type=StarType.DI_KONG))
+    board.grids[dijie_dizhi_offset].stars.append(Star(type=StarType.DI_JIE))
+
+    # Step 15: Figure out where huoxing and lingxing is
+    huoxing_dizhi_base = [DiZhi.CHOU, DiZhi.YOU, DiZhi.YIN, DiZhi.MAO]
+    lingxing_dizhi_base = [DiZhi.MAO, DiZhi.XU, DiZhi.XU, DiZhi.XU]
+    index = (person.year_di_zhi.number - DiZhi.YIN.number + len(DiZhi)) % 4
+    huoxing_dizhi_offset = (huoxing_dizhi_base[index].number + person.time_di_zhi.number) % len(DiZhi)
+    lingxing_dizhi_offset = (lingxing_dizhi_base[index].number + person.time_di_zhi.number) % len(DiZhi)
+    board.grids[huoxing_dizhi_offset].stars.append(Star(type=StarType.HUO_XING))
+    board.grids[lingxing_dizhi_offset].stars.append(Star(type=StarType.LING_XING))
 
 def __populate_sihua(board, person):
     sihua_matrix = [
@@ -184,7 +236,7 @@ def __populate_sihua(board, person):
         for grid in board.grids:
             star_found = find_star_in_grid(grid, sihua_star)
             if star_found is not None:
-                star_found.si_hua = sihua    
+                star_found.si_hua = sihua
 
 #----------DiZhi Calculation Helper Function-------------#
 

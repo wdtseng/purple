@@ -15,9 +15,10 @@ from model import Board
 from model import CHINESE
 from model import SAMPLE
 from model import print_board
-from model import get_rank
 from model import ALPHA_STARS
 from model import BETA_STARS
+from model import BoardClassification
+from model import SiHua
 
 class TestModel(unittest.TestCase):
     """Test the CHINESE dictionary defined in model."""
@@ -29,14 +30,10 @@ class TestModel(unittest.TestCase):
                                         DiZhi,
                                         Element,
                                         Palace,
-                                        StarType):
+                                        StarType,
+                                        BoardClassification,
+                                        SiHua):
             self.assertTrue(tian_gan in CHINESE)
     def test_print(self):
         print_board(SAMPLE)
         
-class TestUtilityFunctions(unittest.TestCase):
-    """ Test the utility function in model """
-    
-    def test_rank_coverage(self):
-        for star_type in StarType:
-            self.assertTrue(star_type in ALPHA_STARS or star_type in BETA_STARS)
