@@ -7,7 +7,7 @@ import unittest
 import itertools
 from model import TianGan
 from model import DiZhi
-from model import AlphaStar
+from model import StarType
 from model import Element
 from model import Palace
 from model import Grid
@@ -15,8 +15,12 @@ from model import Board
 from model import CHINESE
 from model import SAMPLE
 from model import print_board
+from model import ALPHA_STARS
+from model import BETA_STARS
+from model import BoardClassification
+from model import SiHua
 
-class TestChinese(unittest.TestCase):
+class TestModel(unittest.TestCase):
     """Test the CHINESE dictionary defined in model."""
     def test_example(self):
         self.assertEqual(u"甲", CHINESE[TianGan.JIA])
@@ -26,7 +30,10 @@ class TestChinese(unittest.TestCase):
                                         DiZhi,
                                         Element,
                                         Palace,
-                                        AlphaStar):
+                                        StarType,
+                                        BoardClassification,
+                                        SiHua):
             self.assertTrue(tian_gan in CHINESE)
     def test_print(self):
         print_board(SAMPLE)
+        
