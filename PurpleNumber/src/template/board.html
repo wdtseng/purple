@@ -4,7 +4,7 @@
     <title>紫微斗數自己來</title>
     <link rel="stylesheet" href="css/screen.css" type="text/css" media="screen, projection, print"/>
     <link rel="stylesheet" href="css/board.css" type="text/css"/>
-		<script src="script/board.js"  type="application/javascript"></script>
+    <script src="script/board.js"  type="application/javascript"></script>
   </head>
 
   <!-- Macro for a simple vertical word. -->
@@ -22,7 +22,17 @@
     <div class="tdContainer">
       <div class="stars vertical">
         {% for star in grid.stars %}
-        {% call vertical_info() %}{{ chinese[star.type] }}{% endcall %}
+          {% if model_util.get_rank(star.type) == 0 %}
+          {% call vertical_info() %}{{ chinese[star.type] }}{% endcall %}
+          {% endif %}
+        {% endfor %}
+        {% if model_util.has_star_of_rank(grid, 0) %}
+        <p class="star-separator"></p>
+        {% endif %}
+        {% for star in grid.stars %}
+          {% if model_util.get_rank(star.type) == 1 %}
+          {% call vertical_info_small() %}{{ chinese[star.type] }}{% endcall %}
+          {% endif %}
         {% endfor %}
       </div>
       <div class="palace small">
@@ -55,9 +65,11 @@
               {% call vertical_info_small() %}{{ birthday }}{% endcall %}
               {% call vertical_info_small() %}{{ lunar_birthday }}{% endcall %}
               <p class="large name">{{ board.person.name }}</p>
-              {% call vertical_info() %}{{ chinese[board.person_taichi] }}{{ chinese[board.person.sex]}}{% endcall %}
-              {% call vertical_info() %}{{ chinese[board.board_taichi] }}宮{% endcall %}
-              {% call vertical_info() %}{{ chinese[board.element] }}{{ chinese[board.element_number] }}局{% endcall %}
+              <p class="regular board-element">
+                {{ chinese[board.person_taichi] }}{{ chinese[board.person.sex]}}　　<!--
+                -->{{ chinese[board.board_taichi] }}宮　　<!--
+                -->{{ chinese[board.element] }}{{ chinese[board.element_number] }}局
+              </p>
               {% call vertical_info() %}命主：{{ chinese[board.destiny_star.type] }}{% endcall %}
               {% call vertical_info() %}身主：{{ chinese[board.body_star.type] }}{% endcall %}
             </div>
@@ -77,12 +89,12 @@
         {{ grid_macro(board.grids[11]) }}
       </tr>
     </table>
-		{% for grid in board.grids %}
-		{% if grid.palace.number == 0 %}
-		<script type="application/javascript">
-			highlightTheFour({{ grid.di_zhi.number }})
-		</script>
-		{% endif %}
-		{% endfor %}
+    {% for grid in board.grids %}
+    {% if grid.palace.number == 0 %}
+    <script type="application/javascript">
+      highlightTheFour({{ grid.di_zhi.number }})
+    </script>
+    {% endif %}
+    {% endfor %}
   </body>
 </html>

@@ -25,3 +25,9 @@ def get_rank(star_type):
         return 1
     else:
         return 2
+
+def has_star_of_rank(grid, rank):
+    assert isinstance(grid, Grid)
+    assert isinstance(rank, int)
+    assert 0 <= rank and rank <= 2
+    return any(get_rank(star.type) == rank for star in grid.stars)

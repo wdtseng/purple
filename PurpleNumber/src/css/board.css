@@ -64,6 +64,7 @@ table.board tbody tr:nth-child(even) td, tbody tr.even td {
 table.board {
 	border-collapse: collapse;
 	table-layout: fixed;
+	margin: 0;
 }
 table.board td {
 	overflow: hidden;
@@ -73,10 +74,10 @@ td.grid {
 	border: 1px solid black;
 	height: 150px;
 	vertical-align: top;
-	width: 150px;
+	width: 180px;
 }
 td.center {
-	height: 300px;
+	height: 300px; /* Twice the grid height. */
 }
 div.tdContainer {
 	position: relative;
@@ -85,11 +86,16 @@ div.tdContainer {
 }
 
 /* CSS that applies to specific board elements. */
-div.stars,
+div.stars {
+	top: 0;
+	right: 0;
+	position: absolute;
+}
 div.center {
 	top: 0;
 	right: 0;
 	position: absolute;
+	height: 100%;
 }
 div.palace {
 	bottom: 0;
@@ -103,10 +109,14 @@ div.tian-gan-di-zhi {
 	right: 0;
 	opacity: 0.5;
 }
-p.name {
+p.name,
+p.board-element {
 	height: 100%;
 	text-align: center;
-	margin: 0 1em;
+	margin: 0 20px;
+}
+p.star-separator {
+	width: 10px;
 }
 td.the-four {
 	background: rgba(199, 230, 199, 0.4) !important;
@@ -123,3 +133,4 @@ td.opposite-grid {
   /* 遷: light yellow. */
 	background: rgba(240, 240, 150, 0.4) !important;
 }
+
