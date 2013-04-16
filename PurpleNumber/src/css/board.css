@@ -112,14 +112,14 @@ td.the-four {
 	background: rgba(199, 230, 199, 0.4) !important;
 }
 td.ming-grid {
-  /* 命: light green. */
-	background: rgba(150, 240, 150, 0.4) !important;
+  /* 命: light blue. */
+	background: rgba(150, 150, 240, 0.4) !important;
 }
 td.triad-grid {
-  /* 官財: light yellow. */
-	background: rgba(240, 240, 150, 0.4) !important;
+  /* 官財: light green. */
+	background: rgba(150, 240, 150, 0.4) !important;
 }
 td.opposite-grid {
-  /* 遷: light blue */
-	background: rgba(150, 150, 240, 0.4) !important;
+  /* 遷: light yellow. */
+	background: rgba(240, 240, 150, 0.4) !important;
 }

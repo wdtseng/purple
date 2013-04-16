@@ -7,12 +7,15 @@ threadsafe: true
 handlers:
 - url: /css
   static_dir: css
+  mime_type: text/css; charset=utf-8
 
 - url: /script
   static_dir: script
+  mime_type: application/javascript
 
 - url: /svg
   static_dir: svg
+  mime_type: image/svg+xml
 
 - url: /.*
   script: helloworld.app

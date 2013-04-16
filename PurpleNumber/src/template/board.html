@@ -4,9 +4,7 @@
     <title>紫微斗數自己來</title>
     <link rel="stylesheet" href="css/screen.css" type="text/css" media="screen, projection, print"/>
     <link rel="stylesheet" href="css/board.css" type="text/css"/>
-		<script
-			src="script/board.js" language="javascript" type="text/javascript">
-		</script>
+		<script src="script/board.js"  type="application/javascript"></script>
   </head>
 
   <!-- Macro for a simple vertical word. -->
@@ -81,7 +79,7 @@
     </table>
 		{% for grid in board.grids %}
 		{% if grid.palace.number == 0 %}
-		<script language="javascript" type="text/javascript">
+		<script type="application/javascript">
 			highlightTheFour({{ grid.di_zhi.number }})
 		</script>
 		{% endif %}

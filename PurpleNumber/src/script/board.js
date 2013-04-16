@@ -4,7 +4,7 @@ function highlightTheFour(gridNumber) {
   for (var index = 0; index < 12; ++index) {
     document.getElementById('grid' + index).className = 'grid'
   }
-  document.getElementById('grid' + gridNumber).className = 'grid ming-grid'
+  document.getElementById('grid' + gridNumber).className = 'grid triad-grid'
   document.getElementById('grid' + ((gridNumber + 4) % 12)).className = 'grid triad-grid'
   document.getElementById('grid' + ((gridNumber + 8) % 12)).className = 'grid triad-grid'
   document.getElementById('grid' + ((gridNumber + 6) % 12)).className = 'grid opposite-grid'
