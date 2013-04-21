@@ -6,7 +6,7 @@
 import unittest
 from helloworld import num_to_chinese
 from helloworld import board_context
-from model import SAMPLE
+from model_data import SAMPLE
 
 class TestHelloworld(unittest.TestCase):
     """Test helper functions currently residing in helloworld.py."""

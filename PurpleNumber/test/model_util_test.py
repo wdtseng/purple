@@ -4,7 +4,7 @@ Created on Apr 14, 2013
 @author: mac
 '''
 import unittest
-from model_util import *
+import model_util
 from model import *
 
 class TestUtilityFunctions(unittest.TestCase):
@@ -12,4 +12,5 @@ class TestUtilityFunctions(unittest.TestCase):
 
     def test_rank_coverage(self):
         for star_type in StarType:
-            self.assertTrue(star_type in ALPHA_STARS or star_type in BETA_STARS)
+            rank = model_util.get_rank(star_type)
+            self.assertTrue(0 <= rank and rank <= 2)

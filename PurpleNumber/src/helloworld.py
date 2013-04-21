@@ -9,7 +9,8 @@ import webapp2
 from gen_board import generate_board
 import model
 import model_util
-from model import CHINESE
+from model_data import CHINESE
+from model_data import SAMPLE_PERSON
 from google.appengine.api import users
 
 jinja_environment = jinja2.Environment(
@@ -74,7 +75,7 @@ class MainPage(webapp2.RequestHandler):
     def get(self):
         if is_current_user_whitelisted():
             board_template = jinja_environment.get_template("board.html")
-            person = model.SAMPLE_PERSON
+            person = SAMPLE_PERSON
             board = generate_board(person)
             self.response.headers["Content-Type"] = "text/html; charset=utf-8"
             self.response.out.write(board_template.render(board_context(board)))

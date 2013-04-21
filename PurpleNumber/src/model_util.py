@@ -7,6 +7,8 @@ Contains utility function on the data model
 '''
 
 from model import *
+from model_data import ALPHA_STARS
+from model_data import BETA_STARS
 
 def find_star_in_grid(grid, star_type):
     assert isinstance(grid, Grid)

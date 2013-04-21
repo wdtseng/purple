@@ -6,7 +6,8 @@
 import unittest
 import itertools
 import gen_board
-from model import *
+from model_data import SAMPLE_PERSON
+from model_data import SAMPLE
 
 class TestGenBoard(unittest.TestCase):
     """Test the board generation function"""
