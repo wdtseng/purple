@@ -230,7 +230,7 @@ ELEMENT = {
     DiZhi.HAI: (Element.SHUI, Taichi.YIN),
 }
 
-STAR_BRIGHTNESS = {
+BRIGHTNESS = {
     DiZhi.ZI: {
         Brightness.MIAO: [
             StarType.TIAN_JI,
@@ -259,6 +259,36 @@ STAR_BRIGHTNESS = {
             StarType.QING_YANG,
             StarType.HUO_XING,
             StarType.LING_XING,
+        ],
+    },
+    DiZhi.CHOU: {
+        Brightness.MIAO: [
+            StarType.ZI_WEI,
+            StarType.WU_QU,
+            StarType.TIAN_FU,
+            StarType.TAI_YIN,
+            StarType.TAN_LANG,
+            StarType.TIAN_XIANG,
+            StarType.QI_SHA,
+            StarType.WEN_CHANG,
+            StarType.WEN_QU,
+            StarType.QING_YANG,
+            StarType.TUO_LUO,
+        ],
+        Brightness.WANG: [
+            StarType.TIAN_LIANG,
+            StarType.PO_JUN,
+        ],
+        Brightness.PING: [
+            StarType.HUO_XING,
+            StarType.LING_XING,
+            StarType.LIAN_ZHEN,
+        ],
+        Brightness.XIAN: [
+            StarType.TAI_YANG,
+            StarType.TIAN_TONG,
+            StarType.JU_MEN,
+            StarType.TIAN_JI,
         ],
     },
 }

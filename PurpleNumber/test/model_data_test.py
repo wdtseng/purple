@@ -5,9 +5,10 @@ import itertools
 import sys
 import unittest
 from protorpc import messages
-from model import * # All classes must be imported to ensure coverage.
+from model import *  # Import all classes from model to ensure coverage.
 from model_data import ALPHA_STARS
 from model_data import BETA_STARS
+from model_data import BRIGHTNESS
 from model_data import CHINESE
 from model_data import SAMPLE
 from model_data import SAMPLE_PERSON
@@ -33,17 +34,24 @@ class TestChinese(unittest.TestCase):
             issubclass(clsmember[1], messages.Enum)
             and clsmember[1].__module__ == "model"
         )]
-        print enum_classes
-        print TianGan
-        for enum_value in TianGan:
-            self.assertTrue(enum_value in CHINESE,
-                            "%s missing in CHINESE" % enum_value)
-        for enum_value in enum_classes[0]:
-            self.assertTrue(enum_value in CHINESE,
-                            "%s missing in CHINESE" % enum_value)
         for enum_value in itertools.chain(*enum_classes):
             self.assertTrue(enum_value in CHINESE,
                             "%s missing in CHINESE" % enum_value)
+
+class TestBrightness(unittest.TestCase):
+    """Test the brightness matrix."""
+    def test_coverge(self):
+        for di_zhi, brightness_column in BRIGHTNESS.iteritems():
+            stars = set(itertools.chain(*(brightness_column.values())))
+            self.assertEquals(20,
+                              len(stars),
+                              ("Brightness recorded for %d stars with DiZhi.%s"
+                               % (len(stars), di_zhi)))
+    def test_uniqueness(self):
+        for di_zhi, brightness_column in BRIGHTNESS.iteritems():
+            stars = tuple(itertools.chain(*(brightness_column.values())))
+            self.assertTrue(len(set(stars)) == len(stars),
+                            "Some star is repeated: %s" % str(stars))
 
 class TestPrint(unittest.TestCase):
     """Test the printing functions."""
