@@ -291,6 +291,66 @@ BRIGHTNESS = {
             StarType.TIAN_JI,
         ],
     },
+    DiZhi.YIN: {
+        Brightness.MIAO: [
+            StarType.LIAN_ZHEN,
+            StarType.TIAN_FU,
+            StarType.JU_MEN,
+            StarType.TIAN_XIANG,
+            StarType.TIAN_LIANG,
+            StarType.QI_SHA,
+            StarType.LU_CUN,
+            StarType.HUO_XING,
+            StarType.LING_XING,
+        ],
+        Brightness.WANG: [
+            StarType.ZI_WEI,
+            StarType.TAI_YANG,
+            StarType.TAI_YIN,
+        ],
+        Brightness.PING: [
+            StarType.TIAN_JI,
+            StarType.WU_QU,
+            StarType.PO_JUN,
+            StarType.TIAN_TONG,
+            StarType.TAN_LANG,
+            StarType.WEN_QU,
+        ],
+        Brightness.XIAN: [
+            StarType.WEN_CHANG,
+            StarType.TUO_LUO,
+        ],
+    },
+    DiZhi.MAO: {
+        Brightness.MIAO: [
+            StarType.TAI_YANG,
+            StarType.JU_MEN,
+            StarType.TIAN_LIANG,
+            StarType.LU_CUN,
+        ],
+        Brightness.WANG: [
+            StarType.ZI_WEI,
+            StarType.TIAN_JI,
+            StarType.QI_SHA,
+            StarType.WEN_QU,
+        ],
+        Brightness.PING: [
+            StarType.TIAN_FU,
+            StarType.WU_QU,
+            StarType.TAN_LANG,
+            StarType.WEN_CHANG,
+            StarType.HUO_XING,
+            StarType.LING_XING,
+            StarType.TIAN_TONG,
+            StarType.LIAN_ZHEN,
+        ],
+        Brightness.XIAN: [
+            StarType.TAI_YIN,
+            StarType.TIAN_XIANG,
+            StarType.PO_JUN,
+            StarType.QING_YANG,
+        ],
+    },
 }
 
 def print_person(person):
