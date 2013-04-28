@@ -41,6 +41,9 @@ class TestChinese(unittest.TestCase):
 class TestBrightness(unittest.TestCase):
     """Test the brightness matrix."""
     def test_coverge(self):
+        for di_zhi in DiZhi:
+            self.assertTrue(di_zhi in BRIGHTNESS,
+                           "DiZhi.%s is not in BRIGHTNESS" % di_zhi)
         for di_zhi, brightness_column in BRIGHTNESS.iteritems():
             stars = set(itertools.chain(*(brightness_column.values())))
             self.assertEquals(20,
@@ -52,6 +55,7 @@ class TestBrightness(unittest.TestCase):
             stars = tuple(itertools.chain(*(brightness_column.values())))
             self.assertTrue(len(set(stars)) == len(stars),
                             "Some star is repeated: %s" % str(stars))
+
 
 class TestPrint(unittest.TestCase):
     """Test the printing functions."""
