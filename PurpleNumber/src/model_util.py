@@ -9,6 +9,7 @@ Contains utility function on the data model
 from model import *
 from model_data import ALPHA_STARS
 from model_data import BETA_STARS
+from model_data import BRIGHTNESS
 
 def find_star_in_grid(grid, star_type):
     assert isinstance(grid, Grid)
@@ -19,7 +20,7 @@ def find_star_in_grid(grid, star_type):
             return star
     return None
 
-def get_rank(star_type):
+def star_rank(star_type):
     assert isinstance(star_type, StarType)
     if star_type in ALPHA_STARS:
         return 0
@@ -27,6 +28,14 @@ def get_rank(star_type):
         return 1
     else:
         return 2
+
+def star_brightness(star_type, di_zhi):
+    assert isinstance(star_type, StarType)
+    assert isinstance(di_zhi, DiZhi)
+    for brightness in Brightness:
+        if star_type in BRIGHTNESS[di_zhi][brightness]:
+            return brightness
+    return None
 
 def has_star_of_rank(grid, rank):
     assert isinstance(grid, Grid)

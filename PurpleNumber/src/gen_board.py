@@ -238,6 +238,12 @@ def __populate_sihua(board, person):
             if star_found is not None:
                 star_found.si_hua = sihua
 
+def __populate_brightness(board, person):
+    assert isinstance(board, Board)
+    for grid in board.grids:
+        for star in grid.stars:
+            star.brightness = star_brightness(star.type, grid.di_zhi)
+
 #----------DiZhi Calculation Helper Function-------------#
 
 def __calculate_ming_dizhi_offset(person):
@@ -293,6 +299,9 @@ def generate_board(person):
 
     # Calculate the sihua
     __populate_sihua(board, person)
+
+    # Calculate brightness
+    __populate_brightness(board, person)
 
     # For debugging: print the board. This breaks when running on app engine due
     # to utf-8 logging bug.

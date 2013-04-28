@@ -138,8 +138,6 @@ class Star(messages.Message):
     type = messages.EnumField(StarType, 1)
     brightness = messages.EnumField(Brightness, 2)
     si_hua = messages.EnumField(SiHua, 3)
-    element = messages.EnumField(Element, 4, repeated=True)
-    element_tachi = messages.EnumField(Taichi, 5, repeated=True)
 
 class Grid(messages.Message):
     """Structure of a single 宮位.
