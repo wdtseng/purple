@@ -15,6 +15,17 @@
   <p class="vertical small">{{ caller() }}</p>
   {%- endmacro %}
 
+  <!-- Macro for a star. -->
+  {% macro star_macro(star) -%}
+  <span class="starType">{{ chinese[star.type] }}</span>
+  {%- if not star.si_hua is none -%}
+  <span class="siHua">{{ chinese[star.si_hua] }}</span>
+  {%- endif -%}
+  {%- if (not star.brightness is none) and star.brightness.number != 1 -%}
+  <span class="brightness">{{ chinese[star.brightness] }}</span>
+  {%- endif -%}
+  {%- endmacro %}
+
   <!-- Macro for a grid. -->
   {% macro grid_macro(grid)-%}
   <td id="grid{{ grid.di_zhi.number }}"
@@ -22,16 +33,16 @@
     <div class="tdContainer">
       <div class="stars vertical">
         {% for star in grid.stars %}
-          {% if model_util.get_rank(star.type) == 0 %}
-          {% call vertical_info() %}{{ chinese[star.type] }}{% endcall %}
+          {% if model_util.star_rank(star.type) == 0 %}
+            {%- call vertical_info() -%}{{ star_macro(star) }}{%- endcall -%}
           {% endif %}
         {% endfor %}
         {% if model_util.has_star_of_rank(grid, 0) %}
         <p class="star-separator"></p>
         {% endif %}
         {% for star in grid.stars %}
-          {% if model_util.get_rank(star.type) == 1 %}
-          {% call vertical_info_small() %}{{ chinese[star.type] }}{% endcall %}
+          {% if model_util.star_rank(star.type) == 1 %}
+          {% call vertical_info_small() %}{{ star_macro(star) }}{% endcall %}
           {% endif %}
         {% endfor %}
       </div>
@@ -41,7 +52,7 @@
           (身)
         {%- endif %} ({{ grid.da_xian_start}}-{{grid.da_xian_end}})
       </div>
-      <div class="tian-gan-di-zhi vertical small">
+      <div class="tian-gan-di-zhi vertical smallSlanted">
         {{ chinese[grid.tian_gan] }}{{ chinese[grid.di_zhi] }}
       </div>
     </div>
