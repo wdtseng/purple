@@ -59,6 +59,15 @@ def board_context(board):
     )
     return values
 
+def birthday_context():
+    year_options = xrange(1900, 2020)
+    values = {
+        "year_options":year_options,
+        "chinese": CHINESE,
+        "dizhi" : model.DiZhi
+    }
+    return values
+
 def is_current_user_whitelisted():
     """Checks whether the currently signed in user is whitelisted.
     Returns:
@@ -87,6 +96,13 @@ class RobertPage(webapp2.RequestHandler):
         self.response.headers["Content-Type"] = "text/html; charset=utf-8"
         self.response.write("Booraga, 曾冠傑!")
 
+class BirthdayPage(webapp2.RequestHandler):
+    def get(self):
+        board_template = jinja_environment.get_template("birthday.html")
+        self.response.headers["Content-Type"] = "text/html; charset=utf-8"
+        self.response.out.write(board_template.render(birthday_context()))
+
 app = webapp2.WSGIApplication([("/", MainPage),
-                               ("/robert", RobertPage)],
+                               ("/robert", RobertPage),
+                               ("/birthday", BirthdayPage)],
                               debug=True)

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>紫微斗數自己來</title>
+    <link rel="stylesheet" href="css/screen.css" type="text/css"/>
+    <link rel="stylesheet" href="css/board.css" type="text/css"/>
+    <script src="script/board.js"  type="application/javascript"></script>
+  </head>
+
+  <body>
+    <form>
+      Birthday: 
+      <input type="date" name="birthday"/>
+      <br>
+
+      時辰: 
+      <select name="time">
+        {% for dz in dizhi %}
+        <option value="{{ chinese[dz] }}">{{ chinese[dz] }}</option>
+        {% endfor %}
+      </select>
+      <br>
+
+      <input type="submit"/>
+    </form>
+  </body>
+</html>
