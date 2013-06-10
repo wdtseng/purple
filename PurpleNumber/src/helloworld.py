@@ -6,6 +6,7 @@
 import jinja2
 import os
 import webapp2
+import datetime
 from gen_board import generate_board
 import model
 import model_util
@@ -60,11 +61,10 @@ def board_context(board):
     return values
 
 def birthday_context():
-    year_options = xrange(1900, 2020)
     values = {
-        "year_options":year_options,
         "chinese": CHINESE,
-        "dizhi" : model.DiZhi
+        "dizhi" : model.DiZhi,
+        "sex" : model.Sex
     }
     return values
 
@@ -96,13 +96,50 @@ class RobertPage(webapp2.RequestHandler):
         self.response.headers["Content-Type"] = "text/html; charset=utf-8"
         self.response.write("Booraga, 曾冠傑!")
 
+class BoardPage(webapp2.RequestHandler):
+    def post(self):
+        # Get the birthday data from the request
+        bday = self.request.get("birthdate")
+        btime = self.request.get("time")
+        sex = self.request.get("sex")
+        name = self.request.get("name")
+
+        # Convert to metadata
+        bdate = datetime.datetime.strptime(bday, "%Y-%m-%d")
+        byear_tian_gan = model_util.get_year_tian_gan(bdate.year)
+        byear_di_zhi = model_util.get_year_di_zhi(bdate.year)
+        bsex = model.Sex(int(sex))
+        btime_di_zhi = model.DiZhi(int(btime))
+
+        # Create the person
+        p = model.Person(
+            name=name,
+            sex=bsex,
+            year=bdate.year,
+            month_of_year=bdate.month,
+            day_of_month=bdate.day,
+            year_tian_gan=byear_tian_gan,
+            year_di_zhi=byear_di_zhi,
+            lunar_month_of_year=bdate.month,
+            lunar_day_of_month=bdate.day,
+            time_di_zhi=btime_di_zhi,
+        )
+        board = generate_board(p)
+
+        # generate the board
+        board_template = jinja_environment.get_template("board.html")
+        self.response.headers["Content-Type"] = "text/html; charset=utf-8"
+        self.response.out.write(board_template.render(board_context(board)))
+
 class BirthdayPage(webapp2.RequestHandler):
     def get(self):
         board_template = jinja_environment.get_template("birthday.html")
         self.response.headers["Content-Type"] = "text/html; charset=utf-8"
         self.response.out.write(board_template.render(birthday_context()))
 
+
 app = webapp2.WSGIApplication([("/", MainPage),
                                ("/robert", RobertPage),
-                               ("/birthday", BirthdayPage)],
+                               ("/birthday", BirthdayPage),
+                               ("/board", BoardPage)],
                               debug=True)

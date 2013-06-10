@@ -42,3 +42,11 @@ def has_star_of_rank(grid, rank):
     assert isinstance(rank, int)
     assert 0 <= rank and rank <= 2
     return any(star_rank(star.type) == rank for star in grid.stars)
+
+def get_year_tian_gan(year):
+    tian_gan_offset = (year - 2014) % len(TianGan)
+    return TianGan((tian_gan_offset + len(TianGan)) % len(TianGan))
+
+def get_year_di_zhi(year):
+    di_zhi_offset = (year - 2020) % len(DiZhi)
+    return DiZhi((di_zhi_offset + len(DiZhi)) % len(DiZhi))

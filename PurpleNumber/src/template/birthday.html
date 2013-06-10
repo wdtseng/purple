@@ -8,15 +8,27 @@
   </head>
 
   <body>
-    <form>
-      Birthday: 
-      <input type="date" name="birthday"/>
+    <form action="/board" method="post">
+      名字:
+      <input type="text" name="name">
+      <br>
+
+      生日:
+      <input type="date" name="birthdate"/>
       <br>
 
       時辰: 
       <select name="time">
         {% for dz in dizhi %}
-        <option value="{{ chinese[dz] }}">{{ chinese[dz] }}</option>
+        <option value="{{ loop.index0 }}">{{ chinese[dz] }}</option>
+        {% endfor %}
+      </select>
+      <br>
+
+      性別:
+      <select name="sex">
+        {% for s in sex %}
+        <option value="{{ loop.index0 }}">{{ chinese[s] }}</option>
         {% endfor %}
       </select>
       <br>
