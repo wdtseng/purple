@@ -1,0 +1,7 @@
+indexes:
+- kind: PersonModel
+  ancestor: no
+  properties:
+  - name: name
+    direction: desc
+

@@ -58,7 +58,6 @@ def __populate_tachi_and_classification(board, person):
 
 def __populate_destiny_star(board, person):
     ming_dizhi_offset = __calculate_ming_dizhi_offset(person)
-    print ming_dizhi_offset
     destiny_star_mapping = [StarType.TAN_LANG,
                             StarType.JU_MEN,
                             StarType.LU_CUN,

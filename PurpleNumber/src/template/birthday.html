@@ -33,6 +33,15 @@
       </select>
       <br>
 
+      已有檔案:
+      <select name="existing">
+        <option value=""></option>
+        {% for person in query %}
+        <option value="{{ person.person.name }}">{{ person.person.name }}</option>
+        {% endfor %}
+      </select>
+      <br>
+
       <input type="submit"/>
     </form>
   </body>

@@ -12,6 +12,7 @@ import model
 import model_util
 from model_data import CHINESE
 from model_data import SAMPLE_PERSON
+from DataStore import PersonModel
 from google.appengine.api import users
 
 jinja_environment = jinja2.Environment(
@@ -20,8 +21,9 @@ EMAIL_WHITELIST = frozenset(["wdtseng@gmail.com",
                              "kcrtseng@gmail.com",
                              "hcctai@gmail.com"])
 
+
 def num_to_chinese(number, length=None):
-    assert isinstance(number, int)
+    assert isinstance(number, (long, int))
     assert (length is None) or isinstance(length, int)
     if number in CHINESE:
         chinese = CHINESE[number]
@@ -60,11 +62,12 @@ def board_context(board):
     )
     return values
 
-def birthday_context():
+def birthday_context(qry):
     values = {
         "chinese": CHINESE,
         "dizhi" : model.DiZhi,
-        "sex" : model.Sex
+        "sex" : model.Sex,
+        "query" : qry
     }
     return values
 
@@ -98,33 +101,44 @@ class RobertPage(webapp2.RequestHandler):
 
 class BoardPage(webapp2.RequestHandler):
     def post(self):
-        # Get the birthday data from the request
-        bday = self.request.get("birthdate")
-        btime = self.request.get("time")
-        sex = self.request.get("sex")
-        name = self.request.get("name")
-
-        # Convert to metadata
-        bdate = datetime.datetime.strptime(bday, "%Y-%m-%d")
-        byear_tian_gan = model_util.get_year_tian_gan(bdate.year)
-        byear_di_zhi = model_util.get_year_di_zhi(bdate.year)
-        bsex = model.Sex(int(sex))
-        btime_di_zhi = model.DiZhi(int(btime))
-
-        # Create the person
-        p = model.Person(
-            name=name,
-            sex=bsex,
-            year=bdate.year,
-            month_of_year=bdate.month,
-            day_of_month=bdate.day,
-            year_tian_gan=byear_tian_gan,
-            year_di_zhi=byear_di_zhi,
-            lunar_month_of_year=bdate.month,
-            lunar_day_of_month=bdate.day,
-            time_di_zhi=btime_di_zhi,
-        )
-        board = generate_board(p)
+        # Check if we are getting someone from the datastore
+        existing_person_name = self.request.get("existing")
+        
+        if len(existing_person_name) > 0:
+            existing_person = PersonModel.query(PersonModel.person.name == existing_person_name).fetch(1)
+            board = generate_board(existing_person[0].person)
+        else:
+            # Get the birthday data from the request
+            bday = self.request.get("birthdate")
+            btime = self.request.get("time")
+            sex = self.request.get("sex")
+            name = self.request.get("name")
+    
+            # Convert to metadata
+            bdate = datetime.datetime.strptime(bday, "%Y-%m-%d")
+            byear_tian_gan = model_util.get_year_tian_gan(bdate.year)
+            byear_di_zhi = model_util.get_year_di_zhi(bdate.year)
+            bsex = model.Sex(int(sex))
+            btime_di_zhi = model.DiZhi(int(btime))
+    
+            # Create the person
+            p = model.Person(
+                name=name,
+                sex=bsex,
+                year=bdate.year,
+                month_of_year=bdate.month,
+                day_of_month=bdate.day,
+                year_tian_gan=byear_tian_gan,
+                year_di_zhi=byear_di_zhi,
+                lunar_month_of_year=bdate.month,
+                lunar_day_of_month=bdate.day,
+                time_di_zhi=btime_di_zhi,
+            )
+            board = generate_board(p)
+    
+            # Store the Person in the data store
+            pModel = PersonModel(person=p)
+            pModel.put()
 
         # generate the board
         board_template = jinja_environment.get_template("board.html")
@@ -133,9 +147,11 @@ class BoardPage(webapp2.RequestHandler):
 
 class BirthdayPage(webapp2.RequestHandler):
     def get(self):
+        qry = PersonModel.query()
+
         board_template = jinja_environment.get_template("birthday.html")
         self.response.headers["Content-Type"] = "text/html; charset=utf-8"
-        self.response.out.write(board_template.render(birthday_context()))
+        self.response.out.write(board_template.render(birthday_context(qry)))
 
 
 app = webapp2.WSGIApplication([("/", MainPage),
