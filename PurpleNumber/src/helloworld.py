@@ -14,6 +14,7 @@ from model_data import CHINESE
 from model_data import SAMPLE_PERSON
 from DataStore import PersonModel
 from google.appengine.api import users
+from lunardate import LunarDate
 
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__) + '/template'))
@@ -116,22 +117,22 @@ class BoardPage(webapp2.RequestHandler):
     
             # Convert to metadata
             bdate = datetime.datetime.strptime(bday, "%Y-%m-%d")
-            byear_tian_gan = model_util.get_year_tian_gan(bdate.year)
-            byear_di_zhi = model_util.get_year_di_zhi(bdate.year)
-            bsex = model.Sex(int(sex))
+            lunar_bdate = LunarDate.fromSolarDate(bdate.year, bdate.month, bdate.day)
+            byear_tian_gan = model_util.get_year_tian_gan(lunar_bdate.year)
+            byear_di_zhi = model_util.get_year_di_zhi(lunar_bdate.year)
             btime_di_zhi = model.DiZhi(int(btime))
     
             # Create the person
             p = model.Person(
                 name=name,
-                sex=bsex,
+                sex=model.Sex(int(sex)),
                 year=bdate.year,
                 month_of_year=bdate.month,
                 day_of_month=bdate.day,
                 year_tian_gan=byear_tian_gan,
                 year_di_zhi=byear_di_zhi,
-                lunar_month_of_year=bdate.month,
-                lunar_day_of_month=bdate.day,
+                lunar_month_of_year=lunar_bdate.month,
+                lunar_day_of_month=lunar_bdate.day,
                 time_di_zhi=btime_di_zhi,
             )
             board = generate_board(p)
