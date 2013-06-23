@@ -63,8 +63,9 @@ td.center {
 	height: 320px; /* Twice the grid height. */
 }
 div.tdContainer {
+	box-sizing: border-box;
+	height: inherit;
 	position: relative;
-	height: 100%;
 	width: 100%;
 }
 
