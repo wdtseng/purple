@@ -40,44 +40,6 @@
 	padding-top: 2px;
 }
 
-/* CSS for the arrow background. */
-.arrow0 {
-	background-image: url(../svg/arrow0.svg);
-}
-.arrow1 {
-	background-image: url(../svg/arrow1.svg);
-}
-.arrow2 {
-	background-image: url(../svg/arrow2.svg);
-}
-.arrow3 {
-	background-image: url(../svg/arrow3.svg);
-}
-.arrow4 {
-	background-image: url(../svg/arrow4.svg);
-}
-.arrow5 {
-	background-image: url(../svg/arrow5.svg);
-}
-.arrow6 {
-	background-image: url(../svg/arrow6.svg);
-}
-.arrow7 {
-	background-image: url(../svg/arrow7.svg);
-}
-.arrow8 {
-	background-image: url(../svg/arrow8.svg);
-}
-.arrow9 {
-	background-image: url(../svg/arrow9.svg);
-}
-.arrow10 {
-	background-image: url(../svg/arrow10.svg);
-}
-.arrow11 {
-	background-image: url(../svg/arrow11.svg);
-}
-
 /* CSS that applies to the whole table. */
 table.board tbody tr:nth-child(even) td, tbody tr.even td {
 	background: none;
