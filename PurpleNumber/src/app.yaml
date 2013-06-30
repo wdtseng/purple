@@ -17,6 +17,9 @@ handlers:
   static_dir: svg
   mime_type: image/svg+xml
 
+- url: /purple/service.*
+  script: helloworld.purple_service
+
 - url: /.*
   script: helloworld.app
   login: required

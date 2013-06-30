@@ -8,6 +8,7 @@ import os
 import webapp2
 import datetime
 from gen_board import generate_board
+from protorpc.wsgi import service
 import model
 import model_util
 from model_data import CHINESE
@@ -15,6 +16,7 @@ from model_data import SAMPLE_PERSON
 from DataStore import PersonModel
 from google.appengine.api import users
 from lunardate import LunarDate
+from purple_service import PurpleService
 
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__) + '/template'))
@@ -160,3 +162,8 @@ app = webapp2.WSGIApplication([("/", MainPage),
                                ("/birthday", BirthdayPage),
                                ("/board", BoardPage)],
                               debug=True)
+
+purple_service = service.service_mappings(
+    [
+        ("/purple/service", PurpleService),
+    ])
