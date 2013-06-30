@@ -156,11 +156,20 @@ class BirthdayPage(webapp2.RequestHandler):
         self.response.headers["Content-Type"] = "text/html; charset=utf-8"
         self.response.out.write(board_template.render(birthday_context(qry)))
 
+class ProtorpcPage(webapp2.RequestHandler):
+    def get(self):
+        print "i am here"
+        protorpc_template = jinja_environment.get_template("protorpc.html")
+        self.response.headers["Content-Type"] = "text/html; charset=utf-8"
+        self.response.out.write(protorpc_template.render({}))
+
 
 app = webapp2.WSGIApplication([("/", MainPage),
                                ("/robert", RobertPage),
                                ("/birthday", BirthdayPage),
-                               ("/board", BoardPage)],
+                               ("/board", BoardPage),
+                               ("/protorpc", ProtorpcPage),
+                              ],
                               debug=True)
 
 purple_service = service.service_mappings(

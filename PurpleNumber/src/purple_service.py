@@ -22,7 +22,6 @@ class PurpleService(remote.Service):
     """Service to retrieve various Chinese string literals."""
     @remote.method(message_types.VoidMessage, Chinese)
     def get_chinese(self, request):
-        print "I am here"
         chinese = Chinese()
         chinese.tian_gan = u"天干"
         chinese.tian_gans = [CHINESE[tian_gan] for tian_gan in TianGan]

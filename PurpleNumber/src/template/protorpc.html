@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>紫微斗數自己來</title>
+    <link rel="stylesheet" href="css/screen.css" type="text/css" media="screen, projection, print"/>
+    <script src="script/jquery-2.0.2.js" type="application/javascript"></script>
+    <script type="text/javascript">
+      $(function() {
+        chineseCallback = function(chineseJson) {
+          $("#tianGan").html(chineseJson["tian_gan"]);
+          var tianGanList = "";
+          for (var index = 0; index < chineseJson["tian_gans"].length; ++index) {
+            tianGanList += "<li>" + chineseJson["tian_gans"][index] + "</li>";
+          }
+          $("#tianGans").html(tianGanList);
+          $("#diZhi").html(chineseJson["di_zhi"]);
+          var diZhiList = "";
+          for (var index = 0; index < chineseJson["di_zhis"].length; ++index) {
+            diZhiList += "<li>" + chineseJson["di_zhis"][index] + "</li>";
+          }
+          $("#diZhis").html(diZhiList);
+        };
+        $.ajax({
+          type: "POST",
+          url: "purple/service.get_chinese",
+          contentType: "application/json",
+          success: chineseCallback
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <h1 id="tianGan"></h1>
+    <ul id="tianGans"></ul>
+    <h1 id="diZhi"></h1>
+    <ul id="diZhis"></ul>
+  </body>
+</html>
