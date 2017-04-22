@@ -89,7 +89,7 @@ def __populate_da_xian(board, person):
 
 def __populate_alpha_stars(board, person):
     # Step 1: Figure out where zi_wei is
-    rem = board.element_number - person.lunar_day_of_month % board.element_number
+    rem = (board.element_number - (person.lunar_day_of_month % board.element_number)) % board.element_number
     ziwei_offset_from_chou = (person.lunar_day_of_month + rem) / board.element_number + (1 if rem % 2 == 0 else -1) * rem
     ziwei_dizhi_offset = (DiZhi.CHOU.number + ziwei_offset_from_chou + len(DiZhi)) % len(DiZhi)
     board.grids[ziwei_dizhi_offset].stars.append(Star(type=StarType.ZI_WEI))
